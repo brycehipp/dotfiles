@@ -9,6 +9,35 @@ then
   alias la='gls -A --color'
 fi
 
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Flush Directory Service cache
+alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+
+###### Cleanup items ######
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias cleanup.ls="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias cleanup.trash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
 # Edit randy files
 alias edit.hosts='subl /etc/hosts'
 alias edit.httpd='subl /etc/apache2/httpd.conf'
@@ -26,8 +55,12 @@ alias cd.edge='cd ~/Sites/edge/'
 alias cd.scheduled_tasks='cd ~/Sites/scheduled-tasks/'
 
 # Finder shortcuts
-alias finder.show_files='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias finder.hide_files='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+alias finder.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias finder.hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias desktop.show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias desktop.hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 
 # Coldfusion shortcuts
 alias coldfusion='/Applications/Coldfusion10/cfusion/bin/coldfusion'
