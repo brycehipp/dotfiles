@@ -53,6 +53,7 @@ alias cd.coldfusion='cd /Applications/Coldfusion10/cfusion/'
 alias cd.coldfusion.logs='cd /Applications/Coldfusion10/cfusion/logs'
 alias cd.edge='cd ~/Sites/edge/'
 alias cd.scheduled_tasks='cd ~/Sites/scheduled-tasks/'
+alias cd.dotfiles='cd ~/Development/dotfiles/_mine'
 
 # Finder shortcuts
 alias finder.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
