@@ -69,6 +69,9 @@ alias coldfusion='/Applications/Coldfusion10/cfusion/bin/coldfusion'
 
 # MySQL shortcuts
 alias mysql.connect='mysql -u root -p -A'
+alias mysql.start='mysql.server start'
+alias mysql.stop='mysql.server stop'
+alias mysql.restart='mysql.server restart'
 
 # Sencha
 alias sencha="~/bin/Sencha/Cmd/4.0.1.45/sencha"
