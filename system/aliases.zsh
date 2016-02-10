@@ -73,6 +73,10 @@ alias mysql.start='mysql.server start'
 alias mysql.stop='mysql.server stop'
 alias mysql.restart='mysql.server restart'
 
+# FTP shortcuts
+alias ftp.start='sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist'
+alias ftp.stop='sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist'
+
 # Sencha
 alias sencha="~/bin/Sencha/Cmd/4.0.1.45/sencha"
 
