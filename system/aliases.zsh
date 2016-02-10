@@ -77,6 +77,9 @@ alias mysql.restart='mysql.server restart'
 alias ftp.start='sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist'
 alias ftp.stop='sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist'
 
+# Python Shortcuts
+alias python.web='python -m SimpleHTTPServer'
+
 # Sencha
 alias sencha="~/bin/Sencha/Cmd/4.0.1.45/sencha"
 
