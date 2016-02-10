@@ -8,4 +8,7 @@ fi
 # Git shortcuts
 alias git.files_changed='git diff --name-only'
 alias git.release_notes='git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort | nano'
+alias git.fix='git diff --name-only | uniq | xargs subl'
+
+# Alias to match the git oh-my-zsh plugin
 alias gfa='git fetch --all'
