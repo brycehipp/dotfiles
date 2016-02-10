@@ -84,3 +84,6 @@ alias makecoffee='printf "\xE2\x98\x95\n"'
 
 # Safeguard
 alias rm='rm -i'
+
+# VPN
+alias vpn="sudo openconnect --no-dtls --no-cert-check --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
