@@ -55,6 +55,7 @@ alias cd.edge='cd ~/Sites/edge/'
 alias cd.scheduled_tasks='cd ~/Sites/scheduled-tasks/'
 alias cd.dotfiles='cd ~/Development/dotfiles/_mine/'
 alias cd.til='cd ~/Development/_til/'
+alias cd.doc_server='cd ~/Sites/doc-server/'
 
 # Finder shortcuts
 alias finder.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
