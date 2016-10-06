@@ -242,3 +242,15 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
       man "$@"
 }
+
+function up {
+  if [[ "$#" < 1 ]] ; then
+    cd ..
+  else
+    CDSTR=""
+    for i in {1..$1} ; do
+      CDSTR="../$CDSTR"
+    done
+    cd $CDSTR
+  fi
+}
