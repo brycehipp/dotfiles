@@ -45,6 +45,7 @@ alias edit.php='subl /etc/php.ini'
 alias edit.vhosts='subl /etc/apache2/extra/httpd-vhosts.conf'
 alias edit.mod_jk='subl /etc/apache2/mod_jk.conf'
 alias edit.ssh='subl ~/.ssh/config'
+alias edit.ngrok='subl ~/.ngrok2/ngrok.yml'
 
 # Move Directories
 alias cd.sites='cd ~/Sites'
@@ -94,4 +95,4 @@ alias makecoffee='printf "\xE2\x98\x95\n"'
 alias rm='rm -i'
 
 # VPN
-alias vpn="sudo openconnect --no-dtls --no-cert-check --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
+alias vpn="sudo openconnect --no-dtls --servercert=A0D6D2C4503FDF51D5C4C8D14F2DE880D8A9DA55 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
