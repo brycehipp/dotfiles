@@ -19,6 +19,7 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+alias spoof_mac="sudo ifconfig en0 ether fa:ke:ma:c"
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
@@ -95,4 +96,4 @@ alias makecoffee='printf "\xE2\x98\x95\n"'
 alias rm='rm -i'
 
 # VPN
-alias vpn="sudo openconnect --no-dtls --servercert=A0D6D2C4503FDF51D5C4C8D14F2DE880D8A9DA55 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
+alias vpn="sudo openconnect --no-dtls --servercert sha256:66811044a0da0565b22676d52a15f6b7bff03b4ecb20b8ad4a7bb6fd20766885 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"

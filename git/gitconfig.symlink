@@ -20,6 +20,7 @@
 	statusHints = false
 [diff]
 	renames = copies
+	renameLimit = 2794
 [push]
 	default = simple
 [filter "hawser"]

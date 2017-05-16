@@ -12,3 +12,8 @@ alias git.fix='git diff --name-only | uniq | xargs subl'
 
 # Alias to match the git oh-my-zsh plugin
 alias gfa='git fetch --all'
+
+# Aliases for pushing and setting upstream
+alias gpur='git push -u raptor'
+alias gpup='git push -u origin'
+alias gpus='git push -u tli'
