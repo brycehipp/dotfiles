@@ -264,3 +264,11 @@ function up {
     cd $CDSTR
   fi
 }
+
+function cd.site() {
+  if [ $# -eq 0 ]; then
+    cd.sites;
+  else
+    cd ~/Sites/$@;
+  fi;
+}
