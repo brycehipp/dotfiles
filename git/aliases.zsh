@@ -17,3 +17,5 @@ alias gfa='git fetch --all'
 alias gpur='git push -u raptor'
 alias gpup='git push -u origin'
 alias gpus='git push -u tli'
+
+alias gupu='git pull --rebase && git push'
