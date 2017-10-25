@@ -40,13 +40,13 @@ alias cleanup.trash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; su
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Edit randy files
-alias edit.hosts='subl /etc/hosts'
-alias edit.httpd='subl /etc/apache2/httpd.conf'
-alias edit.php='subl /etc/php.ini'
-alias edit.vhosts='subl /etc/apache2/extra/httpd-vhosts.conf'
-alias edit.mod_jk='subl /etc/apache2/mod_jk.conf'
-alias edit.ssh='subl ~/.ssh/config'
-alias edit.ngrok='subl ~/.ngrok2/ngrok.yml'
+alias edit.hosts='code /etc/hosts'
+alias edit.httpd='code /etc/apache2/httpd.conf'
+alias edit.php='code /etc/php.ini'
+alias edit.vhosts='code /etc/apache2/extra/httpd-vhosts.conf'
+alias edit.mod_jk='code /etc/apache2/mod_jk.conf'
+alias edit.ssh='code ~/.ssh/config'
+alias edit.ngrok='code ~/.ngrok2/ngrok.yml'
 
 # Move Directories
 alias cd.sites='cd ~/Sites'
