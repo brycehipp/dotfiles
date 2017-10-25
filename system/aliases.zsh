@@ -72,9 +72,9 @@ alias coldfusion='/Applications/Coldfusion10/cfusion/bin/coldfusion'
 
 # MySQL shortcuts
 alias mysql.connect='mysql -u root -p -A'
-alias mysql.start='mysql.server start'
-alias mysql.stop='mysql.server stop'
-alias mysql.restart='mysql.server restart'
+alias mysql.start='brew services start mysql'
+alias mysql.stop='brew services stop mysql'
+alias mysql.restart='brew services restart mysql'
 
 # FTP shortcuts
 alias ftp.start='sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist'
