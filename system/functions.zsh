@@ -272,3 +272,16 @@ function cd.site() {
     cd ~/Sites/$@;
   fi;
 }
+
+# Serve a directory on a given port
+# https://davidwalsh.name/serve-directory-python
+# $1 = port
+# Example: servedir 8080
+servedir() {
+  if [ -z "${1}" ]; then
+    echo "ERROR: No port specified.";
+    return 1;
+  fi;
+
+  python -m SimpleHTTPServer "$1"
+}
