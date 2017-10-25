@@ -91,9 +91,15 @@ alias subl="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
 
 # Fun
 alias makecoffee='printf "\xE2\x98\x95\n"'
+alias rainbow='yes "$(seq 231 -1 16)" | while read i; do printf "\x1b[48;5;${i}m\n"; sleep .02; done'
 
 # Safeguard
 alias rm='rm -i'
 
+alias lx='ls -X'
+
 # VPN
 alias vpn="sudo openconnect --no-dtls --servercert sha256:66811044a0da0565b22676d52a15f6b7bff03b4ecb20b8ad4a7bb6fd20766885 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
+alias vpn.t="sudo openconnect --no-dtls --servercert sha256:a71d3c7523ab937c430c8348b27da7e183885f79b60553f782b4df9e86e1d90d --quiet --user=bryce.hipp f0096.edgewebhosting.net"
+
+alias ngrok.8080='ngrok http 8080 -host-header="localhost:8080"'
