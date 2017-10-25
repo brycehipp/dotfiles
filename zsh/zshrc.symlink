@@ -46,15 +46,15 @@ plugins=(gitfast brew rails gem nyan osx pip sudo aws bower npm history docker)
 
 source $ZSH/oh-my-zsh.sh
 
+export NPM_PACKAGES="/usr/local/npm_packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+
 # Customize to your needs...
 #export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/bryce/.rvm/gems/ruby-2.0.0-p247/bin:/Users/bryce/.rvm/gems/ruby-2.0.0-p247@global/bin:/Users/bryce/.rvm/rubies/ruby-2.0.0-p247/bin:/Users/bryce/.rvm/bin:/Users/bryce/.rvm/bin
-export PATH=/usr/local/bin:$HOME/.rbenv/bin:$PATH:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$HOME/.yarn/bin
+export PATH=/usr/local/bin:$HOME/.rbenv/bin:$NPM_PACKAGES/bin:$HOME/.yarn/bin:$PATH:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
 
 # Startup rbenv
 eval "$(rbenv init - zsh)"
-
-# Startup nvm
-source ~/.nvm/nvm.sh
 
 # Safeguards
 unsetopt RM_STAR_SILENT
