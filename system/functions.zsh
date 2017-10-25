@@ -211,6 +211,16 @@ function v() {
   fi;
 }
 
+# `c` with no arguments opens the current directory in VS Code, otherwise opens the
+# given location
+function v() {
+  if [ $# -eq 0 ]; then
+    code .;
+  else
+    code "$@";
+  fi;
+}
+
 # `o` with no arguments opens the current directory, otherwise opens the given
 # location
 function o() {
