@@ -4,6 +4,7 @@
 [core]
 	excludesfile = /Users/bryce/.gitignore_global
 	trustctime = false
+	autocrlf = input
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
