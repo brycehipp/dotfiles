@@ -15,7 +15,7 @@ alias gfa='git fetch --all'
 
 # Aliases for pushing and setting upstream
 alias gpur='git push -u raptor'
-alias gpup='git push -u origin'
+alias gpuo='git push -u origin'
 alias gpus='git push -u tli'
 
 alias gupu='git pull --rebase && git push'
