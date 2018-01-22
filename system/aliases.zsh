@@ -106,4 +106,4 @@ alias vpn.t="sudo openconnect --no-dtls --servercert sha256:a71d3c7523ab937c430c
 alias ngrok.8080='ngrok http 8080 -host-header="localhost:8080"'
 
 # Yarn
-alias yarn.please="rm -rf node_modules && yarn"
+alias yarn.please="printf 'Removing node_modules folder...' && rm -rf node_modules && yarn"
