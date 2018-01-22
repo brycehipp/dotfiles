@@ -102,4 +102,8 @@ alias lx='ls -X'
 alias vpn="sudo openconnect --no-dtls --servercert sha256:66811044a0da0565b22676d52a15f6b7bff03b4ecb20b8ad4a7bb6fd20766885 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
 alias vpn.t="sudo openconnect --no-dtls --servercert sha256:a71d3c7523ab937c430c8348b27da7e183885f79b60553f782b4df9e86e1d90d --quiet --user=bryce.hipp f0096.edgewebhosting.net"
 
+# Ngrok
 alias ngrok.8080='ngrok http 8080 -host-header="localhost:8080"'
+
+# Yarn
+alias yarn.please="rm -rf node_modules && yarn"
