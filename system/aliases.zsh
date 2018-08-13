@@ -41,23 +41,14 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Edit randy files
 alias edit.hosts='code /etc/hosts'
-alias edit.httpd='code /etc/apache2/httpd.conf'
-alias edit.php='code /etc/php.ini'
-alias edit.vhosts='code /etc/apache2/extra/httpd-vhosts.conf'
-alias edit.mod_jk='code /etc/apache2/mod_jk.conf'
 alias edit.ssh='code ~/.ssh/config'
 alias edit.ngrok='code ~/.ngrok2/ngrok.yml'
 
 # Move Directories
 alias cd.sites='cd ~/Sites'
 alias cd.development='cd ~/Development'
-alias cd.coldfusion='cd /Applications/Coldfusion10/cfusion/'
-alias cd.coldfusion.logs='cd /Applications/Coldfusion10/cfusion/logs'
-alias cd.edge='cd ~/Sites/edge/'
-alias cd.scheduled_tasks='cd ~/Sites/scheduled-tasks/'
-alias cd.dotfiles='cd ~/Development/dotfiles/_mine/'
-alias cd.til='cd ~/Development/_til/'
-alias cd.doc_server='cd ~/Sites/doc-server/'
+alias cd.temp='cd ~/temp'
+alias cd.edge='cd ~/Sites/edge'
 
 # Finder shortcuts
 alias finder.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -67,14 +58,11 @@ alias finder.hide="defaults write com.apple.finder AppleShowAllFiles -bool false
 alias desktop.show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 alias desktop.hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 
-# Coldfusion shortcuts
-alias coldfusion='/Applications/Coldfusion10/cfusion/bin/coldfusion'
-
 # MySQL shortcuts
-alias mysql.connect='mysql -u root -p -A'
-alias mysql.start='brew services start mysql'
-alias mysql.stop='brew services stop mysql'
-alias mysql.restart='brew services restart mysql'
+alias mysql.connect='mysql -u root -A'
+alias mysql.start='brew services start mysql@5.7'
+alias mysql.stop='brew services stop mysql@5.7'
+alias mysql.restart='brew services restart mysql@5.7'
 
 # FTP shortcuts
 alias ftp.start='sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist'
@@ -86,21 +74,15 @@ alias python.web='python -m SimpleHTTPServer'
 # Sencha
 alias sencha="~/bin/Sencha/Cmd/4.0.1.45/sencha"
 
-# Application Links
-alias subl="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
-
 # Fun
-alias makecoffee='printf "\xE2\x98\x95\n"'
 alias rainbow='yes "$(seq 231 -1 16)" | while read i; do printf "\x1b[48;5;${i}m\n"; sleep .02; done'
 
 # Safeguard
 alias rm='rm -i'
 
-alias lx='ls -X'
-
 # VPN
-alias vpn="sudo openconnect --no-dtls --servercert sha256:66811044a0da0565b22676d52a15f6b7bff03b4ecb20b8ad4a7bb6fd20766885 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
-alias vpn.t="sudo openconnect --no-dtls --servercert sha256:a71d3c7523ab937c430c8348b27da7e183885f79b60553f782b4df9e86e1d90d --quiet --user=bryce.hipp f0096.edgewebhosting.net"
+alias vpn="sudo openconnect --no-dtls --servercert sha256:1cf7fda75311f616beebdba4176482dd637332978271cff8530087dc2c8840d7 --quiet --user=bhipp asa-quantumedgetechnology.edgewebhosting.net"
+alias vpn.t="sudo openconnect --no-dtls --servercert sha256:f3dbdb74bd45185cb32d0e0d63025ba27a196789bb6997e8668c838c5039a918 --quiet --user=bryce.hipp f0096.edgewebhosting.net"
 
 # Ngrok
 alias ngrok.8080='ngrok http 8080 -host-header="localhost:8080"'
