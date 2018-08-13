@@ -285,3 +285,31 @@ servedir() {
 
   python -m SimpleHTTPServer "$1"
 }
+
+restoredb() {
+  if [ -z "${1}" ]; then
+    echo "ERROR: No sql file specified.";
+    return 1;
+  fi;
+
+  if [ -z "${2}" ]; then
+    echo "ERROR: No database name specified.";
+    return 1;
+  fi;
+
+  local sqlFile="$1"
+  local dbName="$2"
+
+  echo "Are you sure you wish to apply $sqlFile to the $dbName database (y/n)?"
+
+  read applyChanges
+
+  if [ $applyChanges = "y" ] || [ $applyChanges = "Y" ]
+  then
+    mysql -u root $dbName < $sqlFile
+    osascript -e 'display notification "DB Restore Complete"'
+    echo "Done..."
+  else
+    echo "Cancelling..."
+  fi
+}
