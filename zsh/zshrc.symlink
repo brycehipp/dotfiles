@@ -1,6 +1,6 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
-DOTFILE_HOME=$HOME/Development/dotfiles/_mine
+DOTFILE_HOME=$HOME/Development/_dotfiles
 PLUGIN_HOME=$HOME/Development/_commands/zsh/plugins
 
 # Set name of the theme to load.
