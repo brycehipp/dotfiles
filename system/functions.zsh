@@ -306,9 +306,10 @@ restoredb() {
 
   if [ $applyChanges = "y" ] || [ $applyChanges = "Y" ]
   then
+    echo "Restoring..."
     mysql -u root $dbName < $sqlFile
     osascript -e 'display notification "DB Restore Complete"'
-    echo "Done..."
+    echo "DB Restore Complete"
   else
     echo "Cancelling..."
   fi
