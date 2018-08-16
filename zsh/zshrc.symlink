@@ -10,7 +10,8 @@ source $ZPLUG_HOME/init.zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dracula"
+# ZSH_THEME="dracula"
+# zplug "dracula/zsh", as:theme
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -54,10 +55,10 @@ export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 
 # Customize to your needs...
 #export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/bryce/.rvm/gems/ruby-2.0.0-p247/bin:/Users/bryce/.rvm/gems/ruby-2.0.0-p247@global/bin:/Users/bryce/.rvm/rubies/ruby-2.0.0-p247/bin:/Users/bryce/.rvm/bin:/Users/bryce/.rvm/bin
-export PATH=/usr/local/bin:$HOME/.rbenv/bin:$NPM_PACKAGES/bin:$HOME/.yarn/bin:$PATH:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
+export PATH=/usr/local/bin:$NPM_PACKAGES/bin:$HOME/.yarn/bin:$PATH:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
 
 # Startup rbenv
-eval "$(rbenv init - zsh)"
+#eval "$(rbenv init - zsh)"
 
 # Safeguards
 unsetopt RM_STAR_SILENT
