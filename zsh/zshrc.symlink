@@ -3,6 +3,9 @@ ZSH=$HOME/.oh-my-zsh
 DOTFILE_HOME=$HOME/Development/_dotfiles
 PLUGIN_HOME=$HOME/Development/_commands/zsh/plugins
 
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
