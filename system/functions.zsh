@@ -286,7 +286,7 @@ servedir() {
   python -m SimpleHTTPServer "$1"
 }
 
-restoredb() {
+sqlimport() {
   if [ -z "${1}" ]; then
     echo "ERROR: No sql file specified.";
     return 1;
@@ -307,10 +307,10 @@ restoredb() {
   if [ $applyChanges = "y" ] || [ $applyChanges = "Y" ]
   then
     echo "Restoring..."
-    mysql -u root $dbName < $sqlFile
+    pv $sqlFile | mysql -uroot $dbName
     osascript -e 'display notification "DB Restore Complete"'
     echo "DB Restore Complete"
   else
-    echo "Cancelling..."
+    echo "Canceled"
   fi
 }
