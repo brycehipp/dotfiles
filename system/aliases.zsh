@@ -89,3 +89,5 @@ alias ngrok.8080='ngrok http 8080 -host-header="localhost:8080"'
 
 # Yarn
 alias yarn.please="printf 'Removing node_modules folder...' && rm -rf node_modules && yarn"
+
+alias npm.please="printf 'Removing node_modules folder...' && rm -rf node_modules && npm i"
