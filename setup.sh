@@ -12,6 +12,8 @@ git clone git@github.com:olivierverdier/zsh-git-prompt.git
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
 
+brew install multitail
+
 nvm alias default node
 
 defaults write -g ApplePressAndHoldEnabled -bool false
