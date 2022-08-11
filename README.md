@@ -8,13 +8,13 @@ Bootstrap your shell.
 
 ```sh
 git clone git@github.com:brycehipp/dotfiles.git ~/.dotfiles
-~/.dotfiles/bootstrap.sh
+~/.dotfiles/scripts/bootstrap.sh
 ```
 
 Perform a first time setup.
 
 ```sh
-~/.dotfiles/setup.sh
+~/.dotfiles/scripts/initial-setup.sh
 ```
 
 ## Customizations
