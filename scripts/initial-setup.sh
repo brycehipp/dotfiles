@@ -24,7 +24,7 @@ try_install_brew() {
       return 0;;
   esac
 
-  # Allow fo installing homebrew in the user dir
+  # Allow for installing homebrew in the user dir
   read -p "Install homebrew under the user dir? (y/N) " BREW_USER_DIR_YN
 
   BREW_DIR="${HOME}/homebrew"
@@ -44,6 +44,8 @@ try_install_brew() {
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       ;;
   esac
+
+  ./brew.sh
 }
 
 try_install_gum() {
