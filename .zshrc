@@ -51,3 +51,7 @@ unset CONFIG_FILES
 # initialize starship prompt
 eval "$(starship init zsh)"
 
+# todo: need to conditionally run this if the command is available
+# pnpm
+export PNPM_HOME="$HOME/.arm64/pnpm"
+export PATH="$PNPM_HOME:$PATH"
