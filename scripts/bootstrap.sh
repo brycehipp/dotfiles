@@ -131,6 +131,7 @@ install_dotfiles () {
   local overwrite_all=false backup_all=false skip_all=false
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
+  link_file "$DOTFILES_ROOT/starship.toml" "$HOME/.config/starship.toml"
 }
 
 setup_gitconfig

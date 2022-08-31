@@ -22,3 +22,8 @@ do
   source $file
 done
 unset CONFIG_FILES
+
+# todo: need to conditionally run this if the command is available
+# initialize starship prompt
+eval "$(starship init zsh)"
+
