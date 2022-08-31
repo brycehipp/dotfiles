@@ -69,6 +69,10 @@ try_create_dev_folder() {
   fi
 }
 
+try_install_ohmyzsh() {
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
+
 set_apple_defaults() {
   echo "[ApplePressAndHoldEnabled] Disable press-and-hold for keys in favor of key repeat."
   defaults write -g ApplePressAndHoldEnabled -bool false
@@ -76,6 +80,9 @@ set_apple_defaults() {
 
 clear
 echo "Setting up computer..."
+
+echo -e "\n## oh-my-zsh ##"
+try_install_ohmyzsh
 
 echo -e "\n## Homebrew ##"
 try_install_brew

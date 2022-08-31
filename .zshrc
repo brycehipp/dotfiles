@@ -1,3 +1,6 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
@@ -12,8 +15,29 @@ export EDITOR='code --wait'
 # Pasting with tabs shouldn't perform autocompletion
 zstyle ':completion:*' insert-tab pending
 
-# Load up Prezto
-source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# define oh-my-zsh plugins
+plugins=(
+  copypath # Copy current path to clipboard
+  copyfile # Copy a file's contents to clipboard
+  colorize # Syntax highlighting when viewing file's contents
+  colored-man-pages # Colorize man pages
+  git # git aliases and functions - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+  gitfast # git completion. Faster than what zsh provides
+  brew # brew aliases
+  npm # npm aliases and completion
+  history # history aliases
+  docker # docker aliases and completion
+  docker-compose # docker-compose aliases and completion
+  encode64 # encode and decode base64 aliases
+  aws # awscli completion and commands
+  macos # macOS aliases
+  zsh-z # Allows jumping between "frecency" directories using z
+  zsh-autosuggestions # Fish-like autosuggestions
+  zsh-syntax-highlighting # Fish-like syntax highlighting. Must be last for it to work correctly
+)
+
+# initalize oh-my-zsh
+source $ZSH/oh-my-zsh.sh
 
 # Load up custom files
 CONFIG_FILES=($HOME/.dotfiles/shell/*.zsh)
