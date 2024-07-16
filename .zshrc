@@ -31,13 +31,17 @@ plugins=(
   encode64 # encode and decode base64 aliases
   aws # awscli completion and commands
   macos # macOS aliases
-  zsh-z # Allows jumping between "frecency" directories using z
-  zsh-autosuggestions # Fish-like autosuggestions
-  zsh-syntax-highlighting # Fish-like syntax highlighting. Must be last for it to work correctly
+  z # Allows jumping between "frecency" directories using z
 )
 
 # initalize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
+## oh-my-zsh plugins installed with homebrew ##
+# Fish-like autosuggestions
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Fish-like syntax highlighting.
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Load up custom files
 CONFIG_FILES=($HOME/.dotfiles/shell/*.zsh)
@@ -50,6 +54,7 @@ unset CONFIG_FILES
 # todo: need to conditionally run this if the command is available
 # initialize starship prompt
 eval "$(starship init zsh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # todo: need to conditionally run this if the command is available
 # pnpm
