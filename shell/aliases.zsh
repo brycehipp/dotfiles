@@ -68,3 +68,5 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 alias git.files_changed='git diff --name-only'
 alias git.release_notes='git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort | nano'
 alias git.fix='git diff --name-only | uniq | xargs code'
+
+alias ls='eza --icons -F -H --group-directories-first --git -1'
