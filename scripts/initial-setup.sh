@@ -48,14 +48,6 @@ try_install_brew() {
   ./brew.sh
 }
 
-try_install_gum() {
-  if has_brew_in_path && ! command -v gum &> /dev/null
-  then
-    echo "Installing gum for scripts"
-    brew install gum
-  fi
-}
-
 try_create_dev_folder() {
   DEV_DIR=$(gum input --cursor.foreground "#FF0" --prompt.foreground "#0FF" --prompt "What should be used as a dev folder? " --placeholder ~/dev)
   test -z "$DEV_DIR" && DEV_DIR="$HOME/dev" # default to ~/dev if nothing provided
@@ -86,9 +78,6 @@ try_install_ohmyzsh
 
 echo -e "\n## Homebrew ##"
 try_install_brew
-
-echo -e "\n## Gum ##"
-try_install_gum
 
 echo -e "\n## Folders ##"
 try_create_dev_folder
