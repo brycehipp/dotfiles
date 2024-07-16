@@ -4,7 +4,7 @@ function () {
 
   local nvm_path="$HOME/.nvm"
 
-  if [[ -d $arch_dir/nvm ]]; then
+  if [ -d $arch_dir/nvm ]; then
     nvm_path=$arch_dir/nvm
   fi
 
