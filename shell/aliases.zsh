@@ -38,7 +38,7 @@ alias z.reload.full='. ~/.zshrc'
 
 # Edit files
 alias edit.z='code ~/.zshrc'
-alias edit_ohmyzsh='code ~/.oh-my-zsh'
+alias edit.ohmyzsh='code ~/.oh-my-zsh'
 alias edit.hosts='code /etc/hosts'
 alias edit.ssh='code ~/.ssh/config'
 alias edit.ngrok='code ~/.ngrok2/ngrok.yml'
