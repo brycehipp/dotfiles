@@ -8,9 +8,7 @@ function () {
     nvm_path=$arch_dir/nvm
   fi
 
-  export NVM_DIR="$nvm_path"
-  # todo: what if HOMEBREW isn't available yet?
-  # todo: see what these should be if nvm installed normally (not with homebrew)
-  [ -s "${HOMEBREW}/opt/nvm/nvm.sh" ] && \. "${HOMEBREW}/opt/nvm/nvm.sh"
-  [ -s "${HOMEBREW}/opt/nvm/etc/bash_completion.d/nvm" ] && \. "${HOMEBREW}/opt/nvm/etc/bash_completion.d/nvm"
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
