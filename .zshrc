@@ -70,3 +70,6 @@ export OCX_PROFILE=default
 # peon-ping quick controls
 alias peon="bash /Users/bryce/.claude/hooks/peon-ping/peon.sh"
 [ -f /Users/bryce/.claude/hooks/peon-ping/completions.bash ] && source /Users/bryce/.claude/hooks/peon-ping/completions.bash
+
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"
