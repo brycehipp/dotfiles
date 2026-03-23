@@ -55,3 +55,11 @@ unset CONFIG_FILES
 # initialize starship prompt
 eval "$(starship init zsh)"
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# bun completions
+[ -s "/Users/bryce/.bun/_bun" ] && source "/Users/bryce/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
