@@ -1,0 +1,3 @@
+[submodule "llm/skills/mattpocock"]
+	path = llm/skills/mattpocock
+	url = git@github.com:brycehipp/mattpocock-skills.git
