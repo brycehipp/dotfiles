@@ -132,6 +132,7 @@ install_dotfiles () {
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
   link_file "$DOTFILES_ROOT/starship.toml" "$HOME/.config/starship.toml"
+  link_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
 }
 
 setup_gitconfig
