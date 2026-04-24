@@ -68,9 +68,8 @@ install_llm_skills() {
 
   local specs=(
     'vercel-labs/skills --skill find-skills'
-    https://github.com/anthropics/skills --skill skill-creator
     'vercel-labs/agent-browser'
-    'https://github.com/supabase/agent-skills --skill supabase-postgres-best-practices'
+    "https://github.com/anthropics/skills --skill skill-creator"
 
     "https://github.com/antfu/skills --skill ${(j: :)antfu_skill_names}"
     "https://github.com/mattpocock/skills --skill ${(j: :)mattpocock_skill_names}"
