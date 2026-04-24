@@ -73,3 +73,12 @@ alias peon="bash /Users/bryce/.claude/hooks/peon-ping/peon.sh"
 
 # Vite+ bin (https://viteplus.dev)
 . "$HOME/.vite-plus/env"
+
+# pnpm
+export PNPM_HOME="/Users/bryce/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
