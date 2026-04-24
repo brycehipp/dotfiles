@@ -1,0 +1,58 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "bindings": {
+      "ctrl-Z u +": "zed::IncreaseUiFontSize",
+      "ctrl-Z u -": "zed::DecreaseUiFontSize",
+      "ctrl-Z u 0": "zed::ResetUiFontSize",
+      "ctrl-Z b +": "zed::IncreaseBufferFontSize",
+      "ctrl-Z b -": "zed::DecreaseBufferFontSize",
+      "ctrl-Z b 0": "zed::ResetBufferFontSize",
+      "ctrl-0": ["workspace::SendKeystrokes", "ctrl-Z u 0 ctrl-Z b 0"],
+      "ctrl-=": ["workspace::SendKeystrokes", "ctrl-Z u + ctrl-Z b +"],
+      "ctrl-+": ["workspace::SendKeystrokes", "ctrl-Z u + ctrl-Z b +"],
+      "ctrl--": ["workspace::SendKeystrokes", "ctrl-Z u - ctrl-Z b -"],
+    },
+  },
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // TERMINAL
+  // ═══════════════════════════════════════════════════════════════════════════════
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-t": "workspace::NewTerminal",
+      "cmd-n": "workspace::NewCenterTerminal",
+      "alt-right": "pane::ActivateNextItem",
+      "alt-left": "pane::ActivatePreviousItem",
+      "alt-,": "pane::SwapItemLeft",
+      "alt-.": "pane::SwapItemRight",
+      "alt-p": "pane::TogglePinTab",
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // WINDOW NAVIGATION
+  // ═══════════════════════════════════════════════════════════════════════════════
+  {
+    "context": "Dock || Terminal || Editor",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "cmd-shift-g": "git_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "q": "git_panel::Close",
+    },
+  },
+]
