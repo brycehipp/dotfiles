@@ -70,6 +70,13 @@ set_apple_defaults() {
   defaults write -g ApplePressAndHoldEnabled -bool false
 }
 
+install_gitalias() {
+  dir=${XDG_CONFIG_HOME:-$HOME/.config}/gitalias
+  mkdir -p "$dir"
+  curl https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o "$dir/gitalias.txt"
+  git config --global include.path "$dir/gitalias.txt"
+}
+
 clear
 echo "Setting up computer..."
 
@@ -84,5 +91,8 @@ try_create_dev_folder
 
 echo -e "\n## Apple Defaults ##"
 set_apple_defaults
+
+echo -e "\n## Gitalias ##"
+install_gitalias
 
 ./bootstrap.sh
