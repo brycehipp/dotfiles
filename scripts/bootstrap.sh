@@ -131,8 +131,10 @@ install_dotfiles () {
   local overwrite_all=false backup_all=false skip_all=false
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
-  link_file "$DOTFILES_ROOT/starship.toml" "$HOME/.config/starship.toml"
   link_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
+  link_file "$DOTFILES_ROOT/config/starship.toml" "$HOME/.config/starship.toml"
+  link_file "$DOTFILES_ROOT/config/zed/settings.json" "$HOME/.config/zed/settings.json"
+  link_file "$DOTFILES_ROOT/config/zed/keymap.json" "$HOME/.config/zed/keymap.json"
 }
 
 setup_gitconfig
