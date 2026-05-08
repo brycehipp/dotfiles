@@ -61,6 +61,7 @@
   "cursor_shape": "block",
   "colorize_brackets": true, // rainbow brackets
   "document_symbols": "on",
+  "document_folding_ranges": "on", // allow the LSP to provide folding ranges. Zed's is nice, but gets confused when a function signature is multiple lines
   "unnecessary_code_fade": 0.4,
   "wrap_guides": [120],
 
