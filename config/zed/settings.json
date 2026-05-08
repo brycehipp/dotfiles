@@ -74,7 +74,6 @@
   "autosave": "on_focus_change",
   "preferred_line_length": 120,
   "double_click_in_multibuffer": "open", // double-click opens file instead of selecting
-  "use_smartcase_search": true, // case-insensitive unless uppercase used
   "auto_indent": "preserve_indent",
   "show_whitespaces": "all",
   "ensure_final_newline_on_save": true,
