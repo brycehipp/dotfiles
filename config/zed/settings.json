@@ -130,6 +130,7 @@
   // SESSION
   // ══════════════════════════════════════════════════════════════════════════════
   "session": {
+    "restore_unsaved_buffers": true,
     "trust_all_worktrees": true,
   },
 
