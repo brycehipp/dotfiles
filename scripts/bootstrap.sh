@@ -120,8 +120,9 @@ link_file () {
 
   if [ "$skip" != "true" ]  # "false" or empty
   then
-    ln -s "$1" "$2"
-    success "linked $1 to $2"
+    mkdir -p "$(dirname "$dst")"
+    ln -s "$src" "$dst"
+    success "linked $src to $dst"
   fi
 }
 
