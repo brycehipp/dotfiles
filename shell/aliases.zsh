@@ -33,15 +33,14 @@ alias cleanup.trash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; su
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # zsh reloads
-alias z.reload='exec zsh'
-alias z.reload.full='. ~/.zshrc'
+alias z.reload='. ~/.zshrc'
+alias z.reload.full='exec zsh'
 
 # Edit files
-alias edit.z='code ~/.zshrc'
-alias edit.ohmyzsh='code ~/.oh-my-zsh'
-alias edit.hosts='code /etc/hosts'
-alias edit.ssh='code ~/.ssh/config'
-alias edit.ngrok='code ~/.ngrok2/ngrok.yml'
+alias edit.z='zed ~/.zshrc'
+alias edit.ohmyzsh='zed ~/.oh-my-zsh'
+alias edit.hosts='zed /etc/hosts'
+alias edit.ssh='zed ~/.ssh/config'
 
 # Finder shortcuts
 alias finder.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -57,12 +56,30 @@ alias rainbow='yes "$(seq 231 -1 16)" | while read i; do printf "\x1b[48;5;${i}m
 # Safeguard
 alias rm='rm -i'
 
-# npm/yarn
-alias yarn.please="printf 'Removing node_modules folder...' && rm -rf node_modules && yarn"
-alias npm.please="printf 'Removing node_modules folder...' && rm -rf node_modules && npm i"
-
 # Pipe my public key to my clipboard.
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+pubkey() {
+  local key_path="${1:-}"
+
+  if [[ -z "$key_path" ]]; then
+    for key_path in "$HOME/.ssh"/*.pub; do
+      [[ -f "$key_path" ]] || continue
+      cat "$key_path" | pbcopy
+      echo "=> Public key copied to pasteboard: $key_path"
+      return 0
+    done
+
+    echo "No public key found in $HOME/.ssh"
+    return 1
+  fi
+
+  if [[ ! -f "$key_path" ]]; then
+    echo "Public key not found: $key_path"
+    return 1
+  fi
+
+  cat "$key_path" | pbcopy
+  echo "=> Public key copied to pasteboard: $key_path"
+}
 
 # Git shortcuts
 alias git.files_changed='git diff --name-only'

@@ -19,6 +19,6 @@ Perform a first time setup.
 
 ## Customizations
 
-You may create `*.work.zsh` files for anything you'd like to customize that shouldn't be part of the repo. The files will automatically be loaded up and ignored by git.
+You may create `*.local.zsh` files for anything you'd like to customize that shouldn't be part of the repo. The files will automatically be loaded up and ignored by git.
 
 Additionally, `~/.localrc` will be loaded up if it exists.

@@ -1,7 +1,13 @@
-#! /bin/bash
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+SCRIPT_DIR=${0:A:h}
+
+source "$SCRIPT_DIR/ui.sh"
 
 has_brew_in_path() {
-  if command -v brew &> /dev/null
+  if command -v brew >/dev/null 2>&1
   then
     return 0
   fi
@@ -9,90 +15,128 @@ has_brew_in_path() {
   return 1
 }
 
+prompt_yes_no() {
+  local prompt="$1"
+  local response
+
+  read "response?${prompt}"
+
+  case "$response" in
+    [yY]|[yY][eE][sS])
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 try_install_brew() {
   # Skip install if we found the `brew` command
   if has_brew_in_path
   then
-    echo "Homebrew already exists in the path. Skipping."
+success "Homebrew already exists in the path. Skipping."
     return 0
   fi
 
   # Make sure we want to install homebrew
-  read -p "Install homebrew? (y/N) " BREW_INSTALL_YN
-  case "$BREW_INSTALL_YN" in
-    [nN]|[oO] )
-      return 0;;
-  esac
-
-  # Allow for installing homebrew in the user dir
-  read -p "Install homebrew under the user dir? (y/N) " BREW_USER_DIR_YN
+  if ! prompt_yes_no "Install homebrew? (y/N) "
+  then
+info "Skipping Homebrew installation."
+    return 0
+  fi
 
   BREW_DIR="${HOME}/homebrew"
 
-  case "$BREW_USER_DIR_YN" in
-    [yY][eE][sS]|[yY] )
-      if [[ -d "$BREW_DIR" ]]
-      then
-        echo "Can't install homebrew. Directory $BREW_DIR already exists."
-      else
-        echo "Installing homebrew in $BREW_DIR"
-        mkdir $BREW_DIR && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $BREW_DIR
-      fi
-      ;;
-    * )
-      echo "Installing homebrew globally"
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      ;;
-  esac
+  # Allow for installing homebrew in the user dir
+  if prompt_yes_no "Install homebrew under the user dir? (y/N) "
+  then
+    if [[ -d "$BREW_DIR" ]]
+    then
+      info "Skipping user-dir Homebrew install. Directory $BREW_DIR already exists."
+      return 0
+    else
+      info "Installing homebrew in $BREW_DIR"
+      mkdir -p "$BREW_DIR"
+      curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "$BREW_DIR"
+    fi
+  else
+info "Installing homebrew globally"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
 
-  ./brew.sh
+  "$SCRIPT_DIR/brew.sh"
 }
 
 try_create_dev_folder() {
-  DEV_DIR=$(gum input --cursor.foreground "#FF0" --prompt.foreground "#0FF" --prompt "What should be used as a dev folder? " --placeholder ~/dev)
-  test -z "$DEV_DIR" && DEV_DIR="$HOME/dev" # default to ~/dev if nothing provided
+  local dev_dir
 
-  if [[ ! -d "$DEV_DIR" ]]
+  read "dev_dir?What should be used as a dev folder? [~/dev] "
+  [[ -z "$dev_dir" ]] && dev_dir="$HOME/dev"
+  [[ "$dev_dir" == '~/'* ]] && dev_dir="$HOME/${dev_dir#~/}"
+
+  if [[ ! -d "$dev_dir" ]]
   then
-    mkdir "$DEV_DIR"
-    echo "Created $DEV_DIR"
+    mkdir -p "$dev_dir"
+success "Created $dev_dir"
   else
-    echo "$DEV_DIR already exists. Skipping."
+success "$dev_dir already exists. Skipping."
   fi
 }
 
 try_install_ohmyzsh() {
+  if [[ -d "$HOME/.oh-my-zsh" ]]
+  then
+success "oh-my-zsh is already installed. Skipping."
+    return 0
+  fi
+
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
 
 set_apple_defaults() {
-  echo "[ApplePressAndHoldEnabled] Disable press-and-hold for keys in favor of key repeat."
+  info "[ApplePressAndHoldEnabled] Disable press-and-hold for keys in favor of key repeat."
   defaults write -g ApplePressAndHoldEnabled -bool false
 }
 
 install_gitalias() {
-  dir=${XDG_CONFIG_HOME:-$HOME/.config}/gitalias
+  local dir=${XDG_CONFIG_HOME:-$HOME/.config}/gitalias
+  local gitalias_path="$dir/gitalias.txt"
+
   mkdir -p "$dir"
-  curl https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o "$dir/gitalias.txt"
-  git config --global include.path "$dir/gitalias.txt"
+
+  info "Downloading gitalias..."
+  curl -fsSL https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o "$gitalias_path"
+  success "Downloaded gitalias"
+
+  if git config --global --get-all include.path | grep -qxF "$gitalias_path"
+  then
+    info "gitalias already present in git include.path"
+    return 0
+  fi
+
+  git config --global --add include.path "$gitalias_path"
+  success "Added gitalias to git include.path"
 }
 
 clear
 echo "Setting up computer..."
 
-echo -e "\n## oh-my-zsh ##"
+section "oh-my-zsh"
 try_install_ohmyzsh
 
-echo -e "\n## Homebrew ##"
+section "Homebrew"
 try_install_brew
 
-echo -e "\n## Folders ##"
+section "Folders"
 try_create_dev_folder
 
-echo -e "\n## Apple Defaults ##"
+section "Apple Defaults"
 set_apple_defaults
+success "Applied Apple defaults"
 
-echo -e "\n## Gitalias ##"
+section "Gitalias"
 install_gitalias
+success "Installed gitalias"
 
-./bootstrap.sh
+"$SCRIPT_DIR/bootstrap.sh"

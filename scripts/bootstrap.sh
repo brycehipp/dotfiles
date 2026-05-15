@@ -1,48 +1,45 @@
-#! /bin/bash
+#!/usr/bin/env zsh
 
 DOTFILES_ROOT=$HOME/.dotfiles
+SCRIPT_DIR=${0:A:h}
 
 set -e
 
+source "$SCRIPT_DIR/ui.sh"
+
 echo ''
 
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-
-user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
-
 setup_gitconfig () {
-  if ! [ -f $HOME/.gitignore-global ]
+  local git_authorname="$(git config --global --get user.name || true)"
+  local git_authoremail="$(git config --global --get user.email || true)"
+  local git_editor="$(git config --global --get core.editor || true)"
+  local git_excludesfile="$(git config --global --get core.excludesfile || true)"
+
+  if [[ -z "$git_authorname" || -z "$git_authoremail" || -z "$git_editor" || -z "$git_excludesfile" ]]
   then
     info 'setup gitconfig'
 
-    user ' - What is your Git author name?'
-    read -e git_authorname
-    user ' - What is your Git author email?'
-    read -e git_authoremail
+    if [[ -z "$git_authorname" ]]
+    then
+      user ' - What is your Git author name?'
+      read -e git_authorname
+    fi
 
-    cp $DOTFILES_ROOT/.gitignore-global $HOME/.gitignore-global
+    if [[ -z "$git_authoremail" ]]
+    then
+      user ' - What is your Git author email?'
+      read -e git_authoremail
+    fi
+
+    cp "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
 
     git config --global init.defaultBranch main
 
     git config --global user.name "${git_authorname}"
     git config --global user.email "${git_authoremail}"
 
-    git config --global core.autocrlf true
-    git config --global core.editor "code --wait"
+    git config --global core.autocrlf input
+    git config --global core.editor "zed --wait"
     git config --global core.excludesfile "${HOME}/.gitignore-global"
 
     success 'gitconfig'
@@ -56,24 +53,25 @@ link_file () {
   local overwrite= backup= skip=
   local action=
 
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+  if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]
   then
 
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+    if [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]
     then
 
-      local currentSrc="$(readlink $dst)"
+      local currentSrc="$(readlink "$dst")"
 
-      if [ "$currentSrc" == "$src" ]
+      if [[ "$currentSrc" == "$src" ]]
       then
 
         skip=true;
 
       else
 
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        user "File already exists: $dst ($(basename "$src")), what do you want to do?
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -n 1 action
+        read -k 1 action
+        echo ''
 
         case "$action" in
           o )
@@ -100,25 +98,25 @@ link_file () {
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-    if [ "$overwrite" == "true" ]
+    if [[ "$overwrite" == "true" ]]
     then
       rm -rf "$dst"
       success "removed $dst"
     fi
 
-    if [ "$backup" == "true" ]
+    if [[ "$backup" == "true" ]]
     then
       mv "$dst" "${dst}.backup"
       success "moved $dst to ${dst}.backup"
     fi
 
-    if [ "$skip" == "true" ]
+    if [[ "$skip" == "true" ]]
     then
       success "skipped $src"
     fi
   fi
 
-  if [ "$skip" != "true" ]  # "false" or empty
+  if [[ "$skip" != "true" ]]  # "false" or empty
   then
     mkdir -p "$(dirname "$dst")"
     ln -s "$src" "$dst"

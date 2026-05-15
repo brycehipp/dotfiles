@@ -1,16 +1,14 @@
+# zmodload zsh/zprof
+
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH="$HOME/.oh-my-zsh"
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
-if [[ -a $HOME/.localrc ]]
-then
-  source $HOME/.localrc
-fi
+[[ -a "$HOME/.localrc" ]] && source "$HOME/.localrc"
 
-# Make sure VS Code waits till closed before sending close signal
-export EDITOR='code --wait'
+# export EDITOR='zed --wait'
 
 # Pasting with tabs shouldn't perform autocompletion
 zstyle ':completion:*' insert-tab pending
@@ -35,50 +33,51 @@ plugins=(
 )
 
 # initalize oh-my-zsh
-source $ZSH/oh-my-zsh.sh
-
-## oh-my-zsh plugins installed with homebrew ##
-# Fish-like autosuggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# Fish-like syntax highlighting.
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$ZSH/oh-my-zsh.sh"
 
 # Load up custom files
 CONFIG_FILES=($HOME/.dotfiles/shell/*.zsh)
-for file in ${CONFIG_FILES}
+for file in $CONFIG_FILES
 do
-  source $file
+  source "$file"
 done
 unset CONFIG_FILES
 
-# todo: need to conditionally run this if the command is available
+# syntax highlighting
+command -v zsh-patina >/dev/null && eval "$(zsh-patina activate)"
+
 # initialize starship prompt
-eval "$(starship init zsh)"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+command -v starship >/dev/null && eval "$(starship init zsh)"
 
 # bun completions
-[ -s "/Users/bryce/.bun/_bun" ] && source "/Users/bryce/.bun/_bun"
+[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-
-# opencode
-export OCX_PROFILE=default
+case ":$PATH:" in
+  *":$BUN_INSTALL/bin:"*) ;;
+  *) export PATH="$BUN_INSTALL/bin:$PATH" ;;
+esac
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # peon-ping quick controls
-alias peon="bash /Users/bryce/.claude/hooks/peon-ping/peon.sh"
-[ -f /Users/bryce/.claude/hooks/peon-ping/completions.bash ] && source /Users/bryce/.claude/hooks/peon-ping/completions.bash
+alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
+[[ -f "$HOME/.claude/hooks/peon-ping/completions.bash" ]] && source "$HOME/.claude/hooks/peon-ping/completions.bash"
 
 # Vite+ bin (https://viteplus.dev)
-. "$HOME/.vite-plus/env"
+[[ -s "$HOME/.vite-plus/env" ]] && . "$HOME/.vite-plus/env"
 
 # pnpm
-export PNPM_HOME="/Users/bryce/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# zprof
