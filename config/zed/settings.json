@@ -13,6 +13,7 @@
   // ══════════════════════════════════════════════════════════════════════════════
   // APPEARANCE
   // ══════════════════════════════════════════════════════════════════════════════
+  "cli_default_open_behavior": "new_window",
   "debugger": {
     "button": false,
   },
@@ -92,7 +93,7 @@
   "git": {
     "inline_blame": {
       "delay_ms": 200,
-      "show_commit_summary": true,
+      // "show_commit_summary": true,
     },
   },
 
@@ -175,7 +176,7 @@
     "show_diagnostics": "errors",
     "git_status": true,
     "file_icons": true,
-    "activate_on_close": "neighbour",
+    "activate_on_close": "history",
   },
 
   // ══════════════════════════════════════════════════════════════════════════════
@@ -256,6 +257,11 @@
     "provider": "zed",
   },
   "agent": {
+    "default_model": {
+      "provider": "openai-subscribed",
+      "model": "gpt-5.4",
+      "enable_thinking": true
+    },
     "dock": "left",
     "max_content_width": 1000.0,
     "button": false,
@@ -270,10 +276,10 @@
     "use_modifier_to_send": true,
     "play_sound_when_agent_done": "always",
     "show_turn_stats": true, // show timer + token count per turn
-    // "commit_message_model": {
-    //   "provider": "copilot_chat",
-    //   "model": "gpt-5.4-mini",
-    // },
+    "commit_message_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini",
+    },
     "enable_feedback": false,
     // "default_model": {
     //   "effort": "medium",
@@ -288,6 +294,12 @@
   // ══════════════════════════════════════════════════════════════════════════════
   "agent_servers": {
     "codex-acp": {
+      "favorite_config_option_values": {
+        "model": ["gpt-5.4"],
+      },
+      "default_config_options": {
+        "model": "gpt-5.4",
+      },
       "type": "registry",
       "default_mode": "full-access",
     },
@@ -307,6 +319,9 @@
       "settings": {
         "database_url": "postgresql://postgres:p0stgres@localhost:5432/head",
       },
+    },
+    "Figma": {
+      "url": "https://mcp.figma.com/mcp",
     },
   },
 
@@ -487,4 +502,8 @@
       },
     ],
   },
+
+  // === TESTING ===
+  "auto_signature_help": true,
+  "semantic_tokens": "combined", // not sure if this is doing anything for TS, Vue or not
 }
