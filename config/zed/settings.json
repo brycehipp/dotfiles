@@ -455,7 +455,6 @@
   // ══════════════════════════════════════════════════════════════════════════════
   "auto_install_extensions": {
     // languages / grammars
-    "basher": true,
     "cfml": true,
     "codebook": true, // spellchecker
     "comment": true, // comment highlighter
