@@ -4,18 +4,43 @@ My personal dotfiles.
 
 ## Install
 
-Bootstrap your shell.
+One-command machine setup (recommended for first-time setup).
 
 ```sh
 git clone git@github.com:brycehipp/dotfiles.git ~/.dotfiles
-~/.dotfiles/scripts/bootstrap.sh
+~/.dotfiles/scripts/setup.sh
 ```
 
-Perform a first time setup.
+Run setup for a specific scope via flags.
 
 ```sh
-~/.dotfiles/scripts/initial-setup.sh
+# Machine setup only
+~/.dotfiles/scripts/setup.sh --machine-only
+
+# Dotfiles only
+~/.dotfiles/scripts/setup.sh --dotfiles-only
 ```
+
+Install/update dotfiles directly.
+
+```sh
+~/.dotfiles/scripts/install-dotfiles.sh
+```
+
+Run machine setup steps directly.
+
+```sh
+~/.dotfiles/scripts/setup-machine.sh
+```
+
+### Re-running dotfiles setup
+
+Both of these are safe to run repeatedly:
+
+- `~/.dotfiles/scripts/setup.sh --dotfiles-only`
+- `~/.dotfiles/scripts/install-dotfiles.sh`
+
+They will relink missing files, skip links that already point at your dotfiles, and prompt for what to do when destination files already exist (`skip`, `overwrite`, or `backup`).
 
 ## Customizations
 

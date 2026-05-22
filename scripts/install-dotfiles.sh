@@ -3,7 +3,7 @@
 DOTFILES_ROOT=$HOME/.dotfiles
 SCRIPT_DIR=${0:A:h}
 
-set -e
+set -euo pipefail
 
 source "$SCRIPT_DIR/ui.sh"
 

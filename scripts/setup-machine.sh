@@ -35,14 +35,14 @@ try_install_brew() {
   # Skip install if we found the `brew` command
   if has_brew_in_path
   then
-success "Homebrew already exists in the path. Skipping."
+    success "Homebrew already exists in the path. Skipping."
     return 0
   fi
 
   # Make sure we want to install homebrew
   if ! prompt_yes_no "Install homebrew? (y/N) "
   then
-info "Skipping Homebrew installation."
+    info "Skipping Homebrew installation."
     return 0
   fi
 
@@ -61,7 +61,7 @@ info "Skipping Homebrew installation."
       curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "$BREW_DIR"
     fi
   else
-info "Installing homebrew globally"
+    info "Installing homebrew globally"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
@@ -78,16 +78,16 @@ try_create_dev_folder() {
   if [[ ! -d "$dev_dir" ]]
   then
     mkdir -p "$dev_dir"
-success "Created $dev_dir"
+    success "Created $dev_dir"
   else
-success "$dev_dir already exists. Skipping."
+    success "$dev_dir already exists. Skipping."
   fi
 }
 
 try_install_ohmyzsh() {
   if [[ -d "$HOME/.oh-my-zsh" ]]
   then
-success "oh-my-zsh is already installed. Skipping."
+    success "oh-my-zsh is already installed. Skipping."
     return 0
   fi
 
@@ -138,5 +138,3 @@ success "Applied Apple defaults"
 section "Gitalias"
 install_gitalias
 success "Installed gitalias"
-
-"$SCRIPT_DIR/bootstrap.sh"
