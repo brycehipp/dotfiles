@@ -9,49 +9,23 @@ source "$SCRIPT_DIR/ui.sh"
 
 echo ''
 
-setup_gitconfig () {
-  local git_authorname="$(git config --global --get user.name || true)"
-  local git_authoremail="$(git config --global --get user.email || true)"
-  local git_editor="$(git config --global --get core.editor || true)"
-  local git_excludesfile="$(git config --global --get core.excludesfile || true)"
-  local git_attributesfile="$(git config --global --get core.attributesfile || true)"
+overwrite_all=false
+backup_all=false
+skip_all=false
 
-  if [[ -z "$git_authorname" || -z "$git_authoremail" || -z "$git_editor" || -z "$git_excludesfile" || -z "$git_attributesfile" ]]
+existing_target_matches_source () {
+  local src=$1 dst=$2 mode=$3
+
+  if [[ "$mode" == "link" ]]
   then
-    info 'setup gitconfig'
-
-    if [[ -z "$git_authorname" ]]
-    then
-      user ' - What is your Git author name?'
-      read -e git_authorname
-    fi
-
-    if [[ -z "$git_authoremail" ]]
-    then
-      user ' - What is your Git author email?'
-      read -e git_authoremail
-    fi
-
-    cp "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
-    cp "$DOTFILES_ROOT/.gitattributes-global" "$HOME/.gitattributes-global"
-
-    git config --global init.defaultBranch main
-
-    git config --global user.name "${git_authorname}"
-    git config --global user.email "${git_authoremail}"
-
-    git config --global core.autocrlf input
-    git config --global core.editor "zed --wait"
-    git config --global core.excludesfile "${HOME}/.gitignore-global"
-    git config --global core.attributesfile "${HOME}/.gitattributes-global"
-
-    success 'gitconfig'
+    [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]
+  else
+    [[ -f "$src" && -f "$dst" ]] && cmp -s "$src" "$dst"
   fi
 }
 
-
-link_file () {
-  local src=$1 dst=$2
+prepare_target () {
+  local src=$1 dst=$2 mode=$3
 
   local overwrite= backup= skip=
   local action=
@@ -62,15 +36,10 @@ link_file () {
     if [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]
     then
 
-      local currentSrc="$(readlink "$dst")"
-
-      if [[ "$currentSrc" == "$src" ]]
+      if existing_target_matches_source "$src" "$dst" "$mode"
       then
-
-        skip=true;
-
+        skip=true
       else
-
         user "File already exists: $dst ($(basename "$src")), what do you want to do?
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -k 1 action
@@ -92,7 +61,6 @@ link_file () {
           * )
             ;;
         esac
-
       fi
 
     fi
@@ -116,10 +84,69 @@ link_file () {
     if [[ "$skip" == "true" ]]
     then
       success "skipped $src"
+      return 1
     fi
   fi
 
-  if [[ "$skip" != "true" ]]  # "false" or empty
+  return 0
+}
+
+copy_file () {
+  local src=$1 dst=$2
+
+  if prepare_target "$src" "$dst" "copy"
+  then
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst"
+    success "copied $src to $dst"
+  fi
+}
+
+setup_gitconfig () {
+  local git_authorname="$(git config --global --get user.name || true)"
+  local git_authoremail="$(git config --global --get user.email || true)"
+  local git_editor="$(git config --global --get core.editor || true)"
+  local git_excludesfile="$(git config --global --get core.excludesfile || true)"
+  local git_attributesfile="$(git config --global --get core.attributesfile || true)"
+
+  if [[ -z "$git_authorname" || -z "$git_authoremail" || -z "$git_editor" || -z "$git_excludesfile" || -z "$git_attributesfile" ]]
+  then
+    info 'setup gitconfig'
+
+    if [[ -z "$git_authorname" ]]
+    then
+      user ' - What is your Git author name?'
+      read -e git_authorname
+    fi
+
+    if [[ -z "$git_authoremail" ]]
+    then
+      user ' - What is your Git author email?'
+      read -e git_authoremail
+    fi
+
+    copy_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
+    copy_file "$DOTFILES_ROOT/.gitattributes-global" "$HOME/.gitattributes-global"
+
+    git config --global init.defaultBranch main
+
+    git config --global user.name "${git_authorname}"
+    git config --global user.email "${git_authoremail}"
+
+    git config --global core.autocrlf input
+    git config --global core.editor "zed --wait"
+    git config --global core.excludesfile "${HOME}/.gitignore-global"
+    git config --global core.attributesfile "${HOME}/.gitattributes-global"
+
+    success 'gitconfig'
+  fi
+}
+
+
+link_file () {
+  local src=$1 dst=$2
+
+  if prepare_target "$src" "$dst" "link"
   then
     mkdir -p "$(dirname "$dst")"
     ln -s "$src" "$dst"
@@ -129,8 +156,6 @@ link_file () {
 
 install_dotfiles () {
   info 'installing dotfiles'
-
-  local overwrite_all=false backup_all=false skip_all=false
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
   link_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
