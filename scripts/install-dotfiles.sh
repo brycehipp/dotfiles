@@ -14,8 +14,9 @@ setup_gitconfig () {
   local git_authoremail="$(git config --global --get user.email || true)"
   local git_editor="$(git config --global --get core.editor || true)"
   local git_excludesfile="$(git config --global --get core.excludesfile || true)"
+  local git_attributesfile="$(git config --global --get core.attributesfile || true)"
 
-  if [[ -z "$git_authorname" || -z "$git_authoremail" || -z "$git_editor" || -z "$git_excludesfile" ]]
+  if [[ -z "$git_authorname" || -z "$git_authoremail" || -z "$git_editor" || -z "$git_excludesfile" || -z "$git_attributesfile" ]]
   then
     info 'setup gitconfig'
 
@@ -32,6 +33,7 @@ setup_gitconfig () {
     fi
 
     cp "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
+    cp "$DOTFILES_ROOT/.gitattributes-global" "$HOME/.gitattributes-global"
 
     git config --global init.defaultBranch main
 
@@ -41,6 +43,7 @@ setup_gitconfig () {
     git config --global core.autocrlf input
     git config --global core.editor "zed --wait"
     git config --global core.excludesfile "${HOME}/.gitignore-global"
+    git config --global core.attributesfile "${HOME}/.gitattributes-global"
 
     success 'gitconfig'
   fi
@@ -131,6 +134,7 @@ install_dotfiles () {
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
   link_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
+  link_file "$DOTFILES_ROOT/.gitattributes-global" "$HOME/.gitattributes-global"
   link_file "$DOTFILES_ROOT/config/starship.toml" "$HOME/.config/starship.toml"
   link_file "$DOTFILES_ROOT/config/ghostty/config.ghostty" "$HOME/.config/ghostty/config.ghostty"
   link_file "$DOTFILES_ROOT/config/zed/settings.json" "$HOME/.config/zed/settings.json"
