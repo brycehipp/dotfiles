@@ -1,6 +1,11 @@
-# install Starship prompt and Nerd Font for it
-brew install starship
-brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
-brew install --cask font-maple-mono-nf
+#!/usr/bin/env zsh
 
-mkdir ~/.config && touch ~/.config/starship.toml
+set -euo pipefail
+
+SCRIPT_DIR=${0:A:h}
+BREWFILE_PATH="$SCRIPT_DIR/../Brewfile"
+
+brew bundle install --file="$BREWFILE_PATH"
+
+mkdir -p ~/.config
+touch ~/.config/starship.toml
