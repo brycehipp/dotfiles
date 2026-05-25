@@ -54,9 +54,7 @@
     "cv61": true, // alternative `,` and `;` with straight tail
     "cv63": true, // alternative `<=` in arrow style
   },
-  "buffer_line_height": {
-    "custom": 1.75,
-  },
+  "buffer_line_height": "comfortable",
   "code_lens": "menu",
   "cursor_blink": true,
   "cursor_shape": "block",
