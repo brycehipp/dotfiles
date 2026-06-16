@@ -7,11 +7,11 @@ lazy_load_nvm() {
     nvm_path="$arch_dir/nvm"
   fi
 
+  unfunction nvm node npm npx pnpm yarn corepack 2>/dev/null || true
+
   export NVM_DIR="$nvm_path"
   [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
   [[ -s "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"
-
-  unfunction nvm node npm npx pnpm yarn corepack 2>/dev/null || true
 }
 
 nvm() {
