@@ -160,6 +160,7 @@ install_dotfiles () {
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
   link_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
   link_file "$DOTFILES_ROOT/.gitattributes-global" "$HOME/.gitattributes-global"
+  link_file "$DOTFILES_ROOT/llm/AGENTS.md" "$HOME/AGENTS.md"
   link_file "$DOTFILES_ROOT/config/starship.toml" "$HOME/.config/starship.toml"
   link_file "$DOTFILES_ROOT/config/ghostty/config.ghostty" "$HOME/.config/ghostty/config.ghostty"
   link_file "$DOTFILES_ROOT/config/zed/settings.json" "$HOME/.config/zed/settings.json"
