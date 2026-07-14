@@ -18,6 +18,7 @@
       "ctrl-=": ["workspace::SendKeystrokes", "ctrl-Z u + ctrl-Z b +"],
       "ctrl-+": ["workspace::SendKeystrokes", "ctrl-Z u + ctrl-Z b +"],
       "ctrl--": ["workspace::SendKeystrokes", "ctrl-Z u - ctrl-Z b -"],
+      "cmd-ctrl-shift-p": "text_finder::Toggle",
     },
   },
   // ═══════════════════════════════════════════════════════════════════════════════
