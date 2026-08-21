@@ -13,6 +13,8 @@
   // ══════════════════════════════════════════════════════════════════════════════
   // APPEARANCE
   // ══════════════════════════════════════════════════════════════════════════════
+  "format_on_save": "on",
+  "hover_popover_enabled": true,
   "cli_default_open_behavior": "new_window",
   "debugger": {
     "button": false,
@@ -189,7 +191,7 @@
   // ══════════════════════════════════════════════════════════════════════════════
   "project_panel": {
     "dock": "right",
-    "button": false,
+    "button": true,
     "default_width": 550,
     "auto_fold_dirs": false,
     "auto_reveal_entries": false,
@@ -198,7 +200,7 @@
     "git_status_indicator": true, // show git status colors on files in project panel
   },
   "outline_panel": {
-    "button": false,
+    "button": true,
     "dock": "right",
   },
   "collaboration_panel": {
@@ -208,7 +210,7 @@
   },
   "git_panel": {
     "dock": "right",
-    "button": false,
+    "button": true,
     "tree_view": true,
     "sort_by_path": true,
     "default_width": 550,
@@ -351,6 +353,7 @@
     },
     "minimum_contrast": 0,
     "keep_selection_on_copy": false,
+    "starts_open": false,
   },
 
   // ══════════════════════════════════════════════════════════════════════════════
@@ -415,16 +418,14 @@
       },
     },
     "TypeScript": {
-      "formatter": {
-        "external": {
-          "command": "prettier",
-          "arguments": ["--stdin-filepath", "{buffer_path}"],
-        },
+      "prettier": {
+        "allowed": true,
       },
       "inlay_hints": {
         "show_type_hints": true,
         "show_value_hints": true,
       },
+      "language_servers": ["typescript-ls", "!vtsls", "!typescript-language-server", "..."],
     },
     "SQL": {
       "formatter": "prettier",
@@ -435,16 +436,12 @@
         "parser": "json",
       },
     },
-    "Markdown": {
-      "format_on_save": "on",
-    },
   },
 
   // ══════════════════════════════════════════════════════════════════════════════
   // LANGUAGE FORMATTER SETTINGS
   // ══════════════════════════════════════════════════════════════════════════════
   "prettier": {
-    "parser": "JavaScript,TypeScript",
     "allowed": true,
   },
 
@@ -454,7 +451,7 @@
   "auto_install_extensions": {
     // languages / grammars
     "cfml": true,
-    "codebook": true, // spellchecker
+    // "codebook": true, // spellchecker
     "comment": true, // comment highlighter
     "csv": true,
     "docker-compose": true,
