@@ -228,3 +228,41 @@ function getcertnames() {
   openssl s_client -connect "$1:443" -servername "$1" </dev/null 2>/dev/null \
     | openssl x509 -noout -subject -ext subjectAltName
 }
+
+# Benchmark current Zsh startup time and show its function profile.
+function zsh-startup-profile() {
+  local runs="${1:-5}"
+  if [[ "$runs" != <-> ]] || (( runs < 1 || runs > 50 )); then
+    echo "Usage: zsh-startup-profile [runs: 1-50]" >&2
+    return 1
+  fi
+
+  zmodload zsh/datetime
+
+  local i
+  typeset -F 6 started elapsed total=0 minimum=0 maximum=0
+
+  printf 'Zsh startup wall time (%d runs)\n' "$runs"
+  for (( i = 1; i <= runs; i++ )); do
+    started=$EPOCHREALTIME
+    command zsh -lic exit >/dev/null 2>&1
+    elapsed=$(( EPOCHREALTIME - started ))
+    (( total += elapsed ))
+
+    if (( i == 1 || elapsed < minimum )); then
+      minimum=$elapsed
+    fi
+    if (( elapsed > maximum )); then
+      maximum=$elapsed
+    fi
+
+    printf '  %d: %.3f s\n' "$i" "$elapsed"
+  done
+
+  printf '  Average: %.3f s\n' "$(( total / runs ))"
+  printf '  Range:   %.3f–%.3f s\n' "$minimum" "$maximum"
+
+  printf '\nzprof summary\n'
+  command zsh -dfi -c 'zmodload zsh/zprof; source "$HOME/.zshrc"; zprof' |
+    awk '/^-{20,}$/ { separators++ } separators < 2'
+}
