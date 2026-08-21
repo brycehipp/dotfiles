@@ -86,4 +86,10 @@ alias git.files_changed='git diff --name-only'
 alias git.release_notes='git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort | nano'
 alias git.fix='git diff --name-only | uniq | xargs ${EDITOR:-zed}'
 
+git.amend_author() {
+  local author="${1:-$(git config user.name) <$(git config user.email)>}"
+
+  git commit --amend --author "$author" --no-edit
+}
+
 alias ls='eza --icons -F -H --group-directories-first --git -1'
