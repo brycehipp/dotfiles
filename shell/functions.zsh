@@ -41,6 +41,89 @@ function df.update() {
   fi
 }
 
+# Report how much of the managed dotfiles setup is configured.
+function df.doctor() {
+  local dotfiles_root="$HOME/.dotfiles"
+  local fix=false
+  local configured=0 total=0 i actual
+  local -a destinations sources git_keys git_values
+
+  case "${1:-}" in
+    '') ;;
+    --fix) fix=true ;;
+    -h|--help)
+      echo "Usage: df.doctor [--fix]"
+      return 0
+      ;;
+    *)
+      echo "Usage: df.doctor [--fix]" >&2
+      return 2
+      ;;
+  esac
+
+  (( $# <= 1 )) || {
+    echo "Usage: df.doctor [--fix]" >&2
+    return 2
+  }
+
+  if $fix; then
+    "$dotfiles_root/scripts/install-dotfiles.sh" || return
+    echo ''
+  fi
+
+  destinations=(
+    "$HOME/.zshrc"
+    "$HOME/.gitignore-global"
+    "$HOME/.gitattributes-global"
+    "$HOME/AGENTS.md"
+    "$HOME/.config/starship.toml"
+    "$HOME/.config/ghostty/config.ghostty"
+    "$HOME/.config/zed/settings.json"
+    "$HOME/.config/zed/keymap.json"
+  )
+  sources=(
+    "$dotfiles_root/.zshrc"
+    "$dotfiles_root/.gitignore-global"
+    "$dotfiles_root/.gitattributes-global"
+    "$dotfiles_root/llm/AGENTS.md"
+    "$dotfiles_root/config/starship.toml"
+    "$dotfiles_root/config/ghostty/config.ghostty"
+    "$dotfiles_root/config/zed/settings.json"
+    "$dotfiles_root/config/zed/keymap.json"
+  )
+  git_keys=(user.name user.email init.defaultBranch core.autocrlf core.excludesfile core.attributesfile)
+  git_values=(present present main input "$HOME/.gitignore-global" "$HOME/.gitattributes-global")
+
+  for (( i = 1; i <= ${#destinations}; i++ )); do
+    (( ++total ))
+    if [[ -L "${destinations[$i]}" && "$(readlink "${destinations[$i]}")" == "${sources[$i]}" ]]; then
+      echo "✓ ${destinations[$i]#$HOME/}"
+      (( ++configured ))
+    else
+      echo "✗ ${destinations[$i]#$HOME/}"
+    fi
+  done
+
+  for (( i = 1; i <= ${#git_keys}; i++ )); do
+    (( ++total ))
+    actual="$(git config --global --get "${git_keys[$i]}" 2>/dev/null || true)"
+    if { [[ "${git_values[$i]}" == present ]] && [[ -n "$actual" ]] } || [[ "$actual" == "${git_values[$i]}" ]]; then
+      echo "✓ git ${git_keys[$i]}"
+      (( ++configured ))
+    else
+      echo "✗ git ${git_keys[$i]}"
+    fi
+  done
+
+  echo ''
+  echo "$configured/$total configured ($(( configured * 100 / total ))%)."
+
+  if (( configured < total )); then
+    $fix || echo "Run df.doctor --fix to apply fixes."
+    return 1
+  fi
+}
+
 function git.fix() {
   local file
   local -a files
