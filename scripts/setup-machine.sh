@@ -6,13 +6,23 @@ SCRIPT_DIR=${0:A:h}
 
 source "$SCRIPT_DIR/ui.sh"
 
-has_brew_in_path() {
+activate_brew() {
+  local brew_path
+
   if command -v brew >/dev/null 2>&1
   then
-    return 0
+    brew_path=$(command -v brew)
+  elif [[ -x /opt/homebrew/bin/brew ]]
+  then
+    brew_path=/opt/homebrew/bin/brew
+  elif [[ -x /usr/local/bin/brew ]]
+  then
+    brew_path=/usr/local/bin/brew
+  else
+    return 1
   fi
 
-  return 1
+  eval "$("$brew_path" shellenv zsh)"
 }
 
 prompt_yes_no() {
@@ -32,40 +42,26 @@ prompt_yes_no() {
 }
 
 try_install_brew() {
-  # Skip install if we found the `brew` command
-  if has_brew_in_path
+  if activate_brew
   then
-    success "Homebrew already exists in the path. Skipping."
-    return 0
-  fi
-
-  # Make sure we want to install homebrew
-  if ! prompt_yes_no "Install homebrew? (y/N) "
-  then
-    info "Skipping Homebrew installation."
-    return 0
-  fi
-
-  BREW_DIR="${HOME}/homebrew"
-
-  # Allow for installing homebrew in the user dir
-  if prompt_yes_no "Install homebrew under the user dir? (y/N) "
-  then
-    if [[ -d "$BREW_DIR" ]]
-    then
-      info "Skipping user-dir Homebrew install. Directory $BREW_DIR already exists."
-      return 0
-    else
-      info "Installing homebrew in $BREW_DIR"
-      mkdir -p "$BREW_DIR"
-      curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "$BREW_DIR"
-    fi
+    success "Homebrew already exists."
   else
-    info "Installing homebrew globally"
+    if ! prompt_yes_no "Install Homebrew? (y/N) "
+    then
+      info "Skipping Homebrew installation."
+      return 0
+    fi
+
+    info "Installing Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    if ! activate_brew
+    then
+      fail "Homebrew installed, but brew could not be found."
+    fi
   fi
 
-  "$SCRIPT_DIR/brew.sh"
+  zsh "$SCRIPT_DIR/brew.sh"
 }
 
 try_create_dev_folder() {
@@ -91,7 +87,7 @@ try_install_ohmyzsh() {
     return 0
   fi
 
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 }
 
 set_apple_defaults() {

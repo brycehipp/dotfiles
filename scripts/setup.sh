@@ -40,12 +40,12 @@ do
   esac
 done
 
-if [[ "$RUN_MACHINE" == "true" ]]
-then
-  "$SCRIPT_DIR/setup-machine.sh"
-fi
-
 if [[ "$RUN_DOTFILES" == "true" ]]
 then
   "$SCRIPT_DIR/install-dotfiles.sh"
+fi
+
+if [[ "$RUN_MACHINE" == "true" ]]
+then
+  "$SCRIPT_DIR/setup-machine.sh"
 fi
