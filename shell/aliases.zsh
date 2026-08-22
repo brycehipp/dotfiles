@@ -37,10 +37,10 @@ alias z.reload='. ~/.zshrc'
 alias z.reload.full='exec zsh'
 
 # Edit files
-alias edit.z='zed ~/.zshrc'
-alias edit.ohmyzsh='zed ~/.oh-my-zsh'
-alias edit.hosts='zed /etc/hosts'
-alias edit.ssh='zed ~/.ssh/config'
+alias edit.z='editor.open ~/.zshrc'
+alias edit.ohmyzsh='editor.open ~/.oh-my-zsh'
+alias edit.hosts='editor.open /etc/hosts'
+alias edit.ssh='editor.open ~/.ssh/config'
 
 # Finder shortcuts
 alias finder.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -84,12 +84,5 @@ pubkey() {
 # Git shortcuts
 alias git.files_changed='git diff --name-only'
 alias git.release_notes='git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort | nano'
-alias git.fix='git diff --name-only | uniq | xargs ${EDITOR:-zed}'
-
-git.amend_author() {
-  local author="${1:-$(git config user.name) <$(git config user.email)>}"
-
-  git commit --amend --author "$author" --no-edit
-}
 
 alias ls='eza --icons -F -H --group-directories-first --git -1'

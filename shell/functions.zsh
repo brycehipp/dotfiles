@@ -16,6 +16,112 @@ function up {
   fi
 }
 
+# Open files with the preferred visual editor, terminal editor, or nano.
+function editor.open() {
+  local editor="${VISUAL:-${EDITOR:-nano}}"
+  local -a editor_command
+
+  editor_command=(${(z)editor})
+  command "${editor_command[@]}" "$@"
+}
+
+# Open these dotfiles in the preferred editor without needing to change directories first.
+function df.open() {
+  editor.open "$HOME/.dotfiles"
+}
+
+# Update these dotfiles without needing to change directories first.
+function df.update() {
+  local dotfiles_root="$HOME/.dotfiles"
+
+  git -C "$dotfiles_root" pull --rebase --autostash || return
+  "$dotfiles_root/scripts/install-dotfiles.sh" || return
+  if command -v brew >/dev/null 2>&1; then
+    zsh "$dotfiles_root/scripts/brew.sh"
+  fi
+}
+
+function git.fix() {
+  local file
+  local -a files
+
+  while IFS= read -r -d $'\0' file; do
+    files+=("$file")
+  done < <(git diff --name-only -z --diff-filter=ACMRTUXB)
+
+  if (( ${#files[@]} == 0 )); then
+    echo "No changed files found."
+    return 0
+  fi
+
+  editor.open "${files[@]}"
+}
+
+function git.amend_author() {
+  local author="${1:-$(git config user.name) <$(git config user.email)>}"
+
+  git commit --amend --author "$author" --no-edit
+}
+
+# Open every reviewable changed file from the current repo in the focused Zed workspace.
+# Pass additional zsh globs to ignore them, e.g. git.review 'dist/**' '*.snap'.
+function git.review() {
+  local repo_root file pattern skip
+  local -a files
+  local -A seen
+
+  repo_root="$(git rev-parse --show-toplevel 2>/dev/null)" || {
+    echo "Not inside a Git repository."
+    return 1
+  }
+
+  while IFS= read -r -d $'\0' file; do
+    [[ -n "$file" ]] || continue
+
+    # Dependency locks, build output, and generated artifacts are usually review noise.
+    case "/$file/" in
+      */dist/*|*/snap/*|*/snapshots/*|*/__snapshots__/*)
+        continue
+        ;;
+    esac
+
+    case "${file:t}" in
+      *.lock|*.lockb|*.lock.hcl|package-lock.json|npm-shrinkwrap.json|pnpm-lock.yaml|Package.resolved|pubspec.lock|go.sum|*.min.js|*.min.css|*.map|*.tsbuildinfo|.DS_Store)
+        continue
+        ;;
+    esac
+
+    skip=false
+    for pattern in "$@"; do
+      if [[ "$file" == ${~pattern} ]]; then
+        skip=true
+        break
+      fi
+    done
+    $skip && continue
+
+    [[ -n "${seen[$file]:-}" ]] && continue
+    seen[$file]=1
+    files+=("$repo_root/$file")
+  done < <(
+    git -C "$repo_root" diff --name-only -z --diff-filter=ACMRTUXB
+    git -C "$repo_root" diff --cached --name-only -z --diff-filter=ACMRTUXB
+    git -C "$repo_root" ls-files --others --exclude-standard -z
+  )
+
+  if (( ${#files[@]} == 0 )); then
+    echo "No reviewable changed files found."
+    return 0
+  fi
+
+  if ! command -v zed >/dev/null 2>&1; then
+    echo "Zed's CLI is not available on PATH."
+    return 1
+  fi
+
+  command zed --add "${files[@]}"
+}
+
 # Determine size of a file or total size of a directory
 function fs() {
   if du -b /dev/null > /dev/null 2>&1; then

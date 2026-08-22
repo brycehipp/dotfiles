@@ -3,12 +3,21 @@
 # Path to your oh-my-zsh configuration.
 ZSH="$HOME/.oh-my-zsh"
 
+# Add Homebrew to PATH on both Apple Silicon and Intel Macs.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv zsh)"
+fi
+
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
 [[ -a "$HOME/.localrc" ]] && source "$HOME/.localrc"
 
-# export EDITOR='zed --wait'
+export VISUAL='zed'
+export EDITOR='vim'
+export GIT_EDITOR='zed --wait'
 
 # Pasting with tabs shouldn't perform autocompletion
 zstyle ':completion:*' insert-tab pending
