@@ -9,8 +9,6 @@ tap "typewhisper/tap"
 
 # Run your GitHub Actions locally
 brew "act"
-# Plugin manager for zsh, inspired by oh-my-zsh and vundle
-brew "antigen"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Yet another cross-platform graphical process/system monitor

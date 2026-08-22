@@ -1,27 +1,3 @@
-# Expected skill id (matches "name" in skills ls --json) from an add spec.
-_llm_skill_name_from_spec() {
-  local spec="$1"
-  if [[ "$spec" == *'--skill '* ]]; then
-    local rest="${spec#*--skill }"
-    echo "${rest%% *}"
-  else
-    local pkg="${spec%% *}"
-    echo "${pkg##*/}"
-  fi
-}
-
-# One installed skill name per line (global scope).
-_llm_global_installed_skill_names() {
-  pnpx skills@latest ls -g --json 2>/dev/null | python3 -c "
-import json, sys
-try:
-    for x in json.load(sys.stdin):
-        print(x['name'])
-except Exception:
-    pass
-" 2>/dev/null
-}
-
 install_llm_skills() {
   local antfu_skill_names=(
     nuxt
@@ -66,49 +42,12 @@ install_llm_skills() {
     the-fool
   )
 
-  local specs=(
-    'vercel-labs/skills --skill find-skills'
-    'vercel-labs/agent-browser'
-    "https://github.com/anthropics/skills --skill skill-creator"
-
-    "https://github.com/antfu/skills --skill ${(j: :)antfu_skill_names}"
-    "https://github.com/mattpocock/skills --skill ${(j: :)mattpocock_skill_names}"
-    "https://github.com/jeffallan/claude-skills --skill ${(j: :)jeffallan_skill_names}"
-  )
-
-  echo "Loading global installed skills…"
-  echo
-  local installed_names
-  installed_names=$(_llm_global_installed_skill_names)
-
-  echo "Attempting to install ${#specs[@]} skills…"
-  echo
-
-  local spec name
-  local -a add_args
-  local skipped=0 added=0
-  for spec in "${specs[@]}"; do
-    [[ -z "$spec" ]] && continue
-    name=$(_llm_skill_name_from_spec "$spec")
-    if printf '%s\n' "$installed_names" | grep -qxF "$name"; then
-      echo "↓ [$name] skipped, already installed"
-      (( skipped++ ))
-      continue
-    fi
-
-    echo "[$name] installing…"
-
-    add_args=(pnpx skills@latest add -g ${(z)spec})
-    if "${add_args[@]}"; then
-      echo "✅ [$name] installed"
-      (( added++ ))
-    else
-      echo "❌ [$name] installation failed" >&2
-    fi
-  done
-
-  echo
-  echo "Finished (installed: $added, skipped: $skipped)"
+  pnpx skills@latest add -g -y vercel-labs/skills --skill find-skills
+  pnpx skills@latest add -g -y vercel-labs/agent-browser
+  pnpx skills@latest add -g -y https://github.com/anthropics/skills --skill skill-creator
+  pnpx skills@latest add -g -y https://github.com/antfu/skills --skill "${antfu_skill_names[@]}"
+  pnpx skills@latest add -g -y https://github.com/mattpocock/skills --skill "${mattpocock_skill_names[@]}"
+  pnpx skills@latest add -g -y https://github.com/jeffallan/claude-skills --skill "${jeffallan_skill_names[@]}"
 }
 
 update_llm_skills() {

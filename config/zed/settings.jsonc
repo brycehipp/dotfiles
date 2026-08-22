@@ -26,7 +26,6 @@
     "code_actions": false,
     "agent_review": true,
     "selections_menu": true,
-    // "quick_actions": false,
     "breadcrumbs": true,
   },
   "status_bar": {
@@ -69,7 +68,6 @@
   // ══════════════════════════════════════════════════════════════════════════════
   // EDITOR BEHAVIOR
   // ══════════════════════════════════════════════════════════════════════════════
-  // "base_keymap": "VSCode",
   "vim_mode": false,
   "tab_size": 2,
   "autosave": "on_focus_change",
@@ -93,16 +91,12 @@
   "git": {
     "inline_blame": {
       "delay_ms": 200,
-      // "show_commit_summary": true,
     },
   },
 
   // ══════════════════════════════════════════════════════════════════════════════
   // INLAY HINTS & INDENT GUIDES
   // ══════════════════════════════════════════════════════════════════════════════
-  "inlay_hints": {
-    // "enabled": true,
-  },
   "indent_guides": {
     "coloring": "indent_aware", // different colors per indent level
   },
@@ -269,10 +263,6 @@
     "tool_permissions": {
       "default": "allow",
     },
-    // "inline_assistant_model": {
-    //   "provider": "zed.dev",
-    //   "model": "",
-    // },
     "use_modifier_to_send": true,
     "play_sound_when_agent_done": "always",
     "show_turn_stats": true, // show timer + token count per turn
@@ -281,12 +271,6 @@
       "model": "gpt-5-mini",
     },
     "enable_feedback": false,
-    // "default_model": {
-    //   "effort": "medium",
-    //   "enable_thinking": true,
-    //   "provider": "copilot_chat",
-    //   "model": "claude-sonnet-4.6",
-    // },
   },
 
   // ══════════════════════════════════════════════════════════════════════════════
@@ -412,15 +396,7 @@
   // LANGUAGE-SPECIFIC SETTINGS
   // ══════════════════════════════════════════════════════════════════════════════
   "languages": {
-    "JavaScript": {
-      "prettier": {
-        "allowed": true,
-      },
-    },
     "TypeScript": {
-      "prettier": {
-        "allowed": true,
-      },
       "inlay_hints": {
         "show_type_hints": true,
         "show_value_hints": true,
@@ -451,7 +427,6 @@
   "auto_install_extensions": {
     // languages / grammars
     "cfml": true,
-    // "codebook": true, // spellchecker
     "comment": true, // comment highlighter
     "csv": true,
     "docker-compose": true,
@@ -501,7 +476,6 @@
     ],
   },
 
-  // === TESTING ===
   "auto_signature_help": true,
-  "semantic_tokens": "combined", // not sure if this is doing anything for TS, Vue or not
+  "semantic_tokens": "combined",
 }

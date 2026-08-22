@@ -13,26 +13,17 @@ overwrite_all=false
 backup_all=false
 skip_all=false
 
-existing_target_matches_source () {
-  local src=$1 dst=$2
-
-  [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]
-}
-
-prepare_target () {
+prepare_target() {
   local src=$1 dst=$2
 
   local overwrite= backup= skip=
   local action=
 
-  if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]
-  then
+  if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
 
-    if [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]
-    then
+    if [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]; then
 
-      if existing_target_matches_source "$src" "$dst"
-      then
+      if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then
         skip=true
       else
         user "File already exists: $dst ($(basename "$src")), what do you want to do?
@@ -41,20 +32,26 @@ prepare_target () {
         echo ''
 
         case "$action" in
-          o )
-            overwrite=true;;
-          O )
-            overwrite_all=true;;
-          b )
-            backup=true;;
-          B )
-            backup_all=true;;
-          s )
-            skip=true;;
-          S )
-            skip_all=true;;
-          * )
-            ;;
+        o)
+          overwrite=true
+          ;;
+        O)
+          overwrite_all=true
+          ;;
+        b)
+          backup=true
+          ;;
+        B)
+          backup_all=true
+          ;;
+        s)
+          skip=true
+          ;;
+        S)
+          skip_all=true
+          ;;
+        *)
+          ;;
         esac
       fi
 
@@ -64,20 +61,17 @@ prepare_target () {
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-    if [[ "$overwrite" == "true" ]]
-    then
+    if [[ "$overwrite" == "true" ]]; then
       rm -rf "$dst"
       success "removed $dst"
     fi
 
-    if [[ "$backup" == "true" ]]
-    then
+    if [[ "$backup" == "true" ]]; then
       mv "$dst" "${dst}.backup"
       success "moved $dst to ${dst}.backup"
     fi
 
-    if [[ "$skip" == "true" ]]
-    then
+    if [[ "$skip" == "true" ]]; then
       success "skipped $src"
       return 1
     fi
@@ -86,22 +80,19 @@ prepare_target () {
   return 0
 }
 
-setup_gitconfig () {
+setup_gitconfig() {
   local git_authorname="$(git config --global --get user.name || true)"
   local git_authoremail="$(git config --global --get user.email || true)"
 
-  if [[ -z "$git_authorname" || -z "$git_authoremail" ]]
-  then
+  if [[ -z "$git_authorname" || -z "$git_authoremail" ]]; then
     info 'setup gitconfig'
 
-    if [[ -z "$git_authorname" ]]
-    then
+    if [[ -z "$git_authorname" ]]; then
       user ' - What is your Git author name?'
       read -e git_authorname
     fi
 
-    if [[ -z "$git_authoremail" ]]
-    then
+    if [[ -z "$git_authoremail" ]]; then
       user ' - What is your Git author email?'
       read -e git_authoremail
     fi
@@ -117,19 +108,17 @@ setup_gitconfig () {
   success 'gitconfig'
 }
 
-
-link_file () {
+link_file() {
   local src=$1 dst=$2
 
-  if prepare_target "$src" "$dst"
-  then
+  if prepare_target "$src" "$dst"; then
     mkdir -p "$(dirname "$dst")"
     ln -s "$src" "$dst"
     success "linked $src to $dst"
   fi
 }
 
-install_dotfiles () {
+install_dotfiles() {
   info 'installing dotfiles'
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
@@ -138,7 +127,7 @@ install_dotfiles () {
   link_file "$DOTFILES_ROOT/llm/AGENTS.md" "$HOME/AGENTS.md"
   link_file "$DOTFILES_ROOT/config/starship.toml" "$HOME/.config/starship.toml"
   link_file "$DOTFILES_ROOT/config/ghostty/config.ghostty" "$HOME/.config/ghostty/config.ghostty"
-  link_file "$DOTFILES_ROOT/config/zed/settings.json" "$HOME/.config/zed/settings.json"
+  link_file "$DOTFILES_ROOT/config/zed/settings.jsonc" "$HOME/.config/zed/settings.json"
   link_file "$DOTFILES_ROOT/config/zed/keymap.json" "$HOME/.config/zed/keymap.json"
 }
 

@@ -63,14 +63,9 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-case ":$PATH:" in
-  *":$BUN_INSTALL/bin:"*) ;;
-  *) export PATH="$BUN_INSTALL/bin:$PATH" ;;
-esac
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
+export PNPM_HOME="$HOME/Library/pnpm"
+typeset -U path PATH
+path=("$PNPM_HOME/bin" "$HOME/.local/bin" "$BUN_INSTALL/bin" $path)
 
 # peon-ping quick controls
 alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
@@ -78,14 +73,6 @@ alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
 
 # Vite+ bin (https://viteplus.dev)
 [[ -s "$HOME/.vite-plus/env" ]] && . "$HOME/.vite-plus/env"
-
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-# pnpm end
 
 # export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 

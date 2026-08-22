@@ -9,14 +9,11 @@ source "$SCRIPT_DIR/ui.sh"
 activate_brew() {
   local brew_path
 
-  if command -v brew >/dev/null 2>&1
-  then
+  if command -v brew >/dev/null 2>&1; then
     brew_path=$(command -v brew)
-  elif [[ -x /opt/homebrew/bin/brew ]]
-  then
+  elif [[ -x /opt/homebrew/bin/brew ]]; then
     brew_path=/opt/homebrew/bin/brew
-  elif [[ -x /usr/local/bin/brew ]]
-  then
+  elif [[ -x /usr/local/bin/brew ]]; then
     brew_path=/usr/local/bin/brew
   else
     return 1
@@ -25,38 +22,21 @@ activate_brew() {
   eval "$("$brew_path" shellenv zsh)"
 }
 
-prompt_yes_no() {
-  local prompt="$1"
-  local response
-
-  read "response?${prompt}"
-
-  case "$response" in
-    [yY]|[yY][eE][sS])
-      return 0
-      ;;
-    *)
-      return 1
-      ;;
-  esac
-}
-
 try_install_brew() {
-  if activate_brew
-  then
+  if activate_brew; then
     success "Homebrew already exists."
   else
-    if ! prompt_yes_no "Install Homebrew? (y/N) "
-    then
+    if ! read -q "response?Install Homebrew? (y/N) "; then
+      echo
       info "Skipping Homebrew installation."
       return 0
     fi
+    echo
 
     info "Installing Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    if ! activate_brew
-    then
+    if ! activate_brew; then
       fail "Homebrew installed, but brew could not be found."
     fi
   fi
@@ -71,8 +51,7 @@ try_create_dev_folder() {
   [[ -z "$dev_dir" ]] && dev_dir="$HOME/dev"
   [[ "$dev_dir" == '~/'* ]] && dev_dir="$HOME/${dev_dir#~/}"
 
-  if [[ ! -d "$dev_dir" ]]
-  then
+  if [[ ! -d "$dev_dir" ]]; then
     mkdir -p "$dev_dir"
     success "Created $dev_dir"
   else
@@ -81,8 +60,7 @@ try_create_dev_folder() {
 }
 
 try_install_ohmyzsh() {
-  if [[ -d "$HOME/.oh-my-zsh" ]]
-  then
+  if [[ -d "$HOME/.oh-my-zsh" ]]; then
     success "oh-my-zsh is already installed. Skipping."
     return 0
   fi
@@ -105,8 +83,7 @@ install_gitalias() {
   curl -fsSL https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o "$gitalias_path"
   success "Downloaded gitalias"
 
-  if git config --global --get-all include.path | grep -qxF "$gitalias_path"
-  then
+  if git config --global --get-all include.path | grep -qxF "$gitalias_path"; then
     info "gitalias already present in git include.path"
     return 0
   fi

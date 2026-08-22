@@ -11,16 +11,6 @@ git clone git@github.com:brycehipp/dotfiles.git ~/.dotfiles
 ~/.dotfiles/scripts/setup.sh
 ```
 
-Run setup for a specific scope via flags.
-
-```sh
-# Machine setup only
-~/.dotfiles/scripts/setup.sh --machine-only
-
-# Dotfiles only
-~/.dotfiles/scripts/setup.sh --dotfiles-only
-```
-
 Install/update dotfiles directly.
 
 ```sh
@@ -35,12 +25,7 @@ Run machine setup steps directly.
 
 ### Re-running dotfiles setup
 
-Both of these are safe to run repeatedly:
-
-- `~/.dotfiles/scripts/setup.sh --dotfiles-only`
-- `~/.dotfiles/scripts/install-dotfiles.sh`
-
-They will relink missing files, skip links that already point at your dotfiles, and prompt for what to do when destination files already exist (`skip`, `overwrite`, or `backup`).
+`~/.dotfiles/scripts/install-dotfiles.sh` is safe to run repeatedly. It will relink missing files, skip links that already point at your dotfiles, and prompt for what to do when destination files already exist (`skip`, `overwrite`, or `backup`).
 
 After opening a new shell, run `df.update` to pull repository updates, link any newly added dotfiles, and install new Brewfile dependencies without upgrading existing packages.
 
