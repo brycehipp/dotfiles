@@ -1,6 +1,6 @@
 # Global agent instructions
 
-- This only applies to Cursor - use Composer for implementation and exploration unless told otherwise. The goal for a big frontier model is orchestration, Composer does the work in an attempt to reduce frontier model token usage.
+- Every Task that writes or explores code must include the ponytail user rule in the prompt. Paste the rule text from this session. Do not point at a skill file.
 - Never use the em dash "—". Use plain dash "-" instead
 - When writing commit messages, NEVER auto-add your agent name as co-author
 - Never manually modify CHANGELOG.md files or any files that are marked as auto-generated
