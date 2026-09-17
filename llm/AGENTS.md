@@ -2,7 +2,7 @@
 
 - Every Task that writes or explores code must include the ponytail user rule in the prompt. Paste the rule text from this session. Do not point at a skill file.
 - Never use the em dash "—". Use plain dash "-" instead
-- When writing commit messages, NEVER auto-add your agent name as co-author
+- When writing commit messages, NEVER auto-add your agent name as co-author. ALWAYS follow the Conventional Commits specification.
 - Never manually modify CHANGELOG.md files or any files that are marked as auto-generated
 - When doing bug fixes, always start by reproducing the bug as close to end-user behavior as practical. If full E2E is not feasible, use the closest reliable reproduction.
   This makes sure you find the real problem so your fix will actually solve it.
