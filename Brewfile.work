@@ -1,0 +1,33 @@
+tap "cloudflare/cloudflare", trusted: true
+
+# Run your GitHub Actions locally
+brew "act"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# CFML embedded server, package manager, and app scaffolding tools
+brew "commandbox"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
+brew "docker-buildx"
+# Isolated development environments using Docker
+brew "docker-compose"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+# Postgres C API library
+brew "libpq"
+# Minify and secure Docker images
+brew "mintoolkit"
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
+# Pins GitHub Actions to full hashes and versions
+brew "pinact"
+# Find security issues in GitHub Actions setups
+brew "zizmor"
+
+# Web browser
+cask "firefox@developer-edition"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
+cask "session-manager-plugin"

@@ -29,6 +29,20 @@ Run machine setup steps directly.
 
 After opening a new shell, run `df.update` to pull repository updates, link any newly added dotfiles, and install new Brewfile dependencies without upgrading existing packages.
 
+Homebrew packages are split across:
+
+- `Brewfile` - always installed
+- `Brewfile.agents` - AI / agent tooling (optional)
+- `Brewfile.work` - work tooling (optional)
+
+Optional sets are controlled by `brew-profiles.local` (gitignored). Machine setup prompts for agents/work and writes that file. Edit it later, or run:
+
+```sh
+~/.dotfiles/scripts/brew.sh --all
+~/.dotfiles/scripts/brew.sh --agents
+~/.dotfiles/scripts/brew.sh --work
+```
+
 Run `df.doctor` to see how much of the managed dotfiles and Git configuration is installed. Use `df.doctor --fix` to apply missing configuration with the existing installer.
 
 ## Customizations

@@ -22,6 +22,34 @@ activate_brew() {
   eval "$("$brew_path" shellenv zsh)"
 }
 
+configure_brew_profiles() {
+  local profiles_file="$SCRIPT_DIR/../brew-profiles.local"
+  local -a selected=()
+
+  if [[ -f "$profiles_file" ]]; then
+    success "Brew profiles already set ($profiles_file). Skipping."
+    return 0
+  fi
+
+  if read -q "response?Install agents Brewfile (AI tooling)? (y/N) "; then
+    selected+=("agents")
+  fi
+  echo
+
+  if read -q "response?Install work Brewfile? (y/N) "; then
+    selected+=("work")
+  fi
+  echo
+
+  if (( ${#selected[@]} == 0 )); then
+    info "No optional Brewfiles selected. Only the main Brewfile will install."
+    : >"$profiles_file"
+  else
+    printf '%s\n' "${selected[@]}" >"$profiles_file"
+    success "Wrote $profiles_file (${(j:, :)selected})"
+  fi
+}
+
 try_install_brew() {
   if activate_brew; then
     success "Homebrew already exists."
@@ -41,6 +69,7 @@ try_install_brew() {
     fi
   fi
 
+  configure_brew_profiles
   zsh "$SCRIPT_DIR/brew.sh"
 }
 

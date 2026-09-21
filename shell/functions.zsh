@@ -38,7 +38,8 @@ function df.update() {
   git -C "$dotfiles_root" pull --rebase --autostash || return
   "$dotfiles_root/scripts/install-dotfiles.sh" || return
   if command -v brew >/dev/null 2>&1; then
-    zsh "$dotfiles_root/scripts/brew.sh"
+    # Optional brew profiles come from brew-profiles.local; pass flags through if given.
+    zsh "$dotfiles_root/scripts/brew.sh" "$@"
   fi
 }
 
