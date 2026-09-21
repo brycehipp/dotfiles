@@ -1,0 +1,25 @@
+# Plastic - https://plastic.wstone.uk/
+# Bright ANSI matches normal; Plastic recommends bold for emphasis.
+
+palette = 0=#5F6672
+palette = 1=#E06C75
+palette = 2=#98C379
+palette = 3=#E5C07B
+palette = 4=#61AFEF
+palette = 5=#B57EDC
+palette = 6=#56B6C2
+palette = 7=#A9B2C3
+palette = 8=#5F6672
+palette = 9=#E06C75
+palette = 10=#98C379
+palette = 11=#E5C07B
+palette = 12=#61AFEF
+palette = 13=#B57EDC
+palette = 14=#56B6C2
+palette = 15=#A9B2C3
+background = #181A1F
+foreground = #A9B2C3
+cursor-color = #A9B2C3
+cursor-text = #181A1F
+selection-background = #383E4A
+selection-foreground = #C6CCD7
