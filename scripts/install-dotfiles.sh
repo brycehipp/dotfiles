@@ -122,6 +122,7 @@ install_dotfiles() {
   info 'installing dotfiles'
 
   link_file "$DOTFILES_ROOT/.zshrc" "$HOME/.zshrc"
+  link_file "$DOTFILES_ROOT/.zshenv" "$HOME/.zshenv"
   link_file "$DOTFILES_ROOT/.gitignore-global" "$HOME/.gitignore-global"
   link_file "$DOTFILES_ROOT/.gitattributes-global" "$HOME/.gitattributes-global"
   link_file "$DOTFILES_ROOT/llm/AGENTS.md" "$HOME/AGENTS.md"

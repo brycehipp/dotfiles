@@ -130,6 +130,9 @@ try_install_ohmyzsh
 section "Homebrew"
 try_install_brew
 
+section "pnpm"
+zsh "$SCRIPT_DIR/install-pnpm.sh"
+
 section "Folders"
 try_create_dev_folder
 

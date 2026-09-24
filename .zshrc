@@ -3,18 +3,6 @@
 # Path to your oh-my-zsh configuration.
 ZSH="$HOME/.oh-my-zsh"
 
-# Add Homebrew to PATH on both Apple Silicon and Intel Macs.
-if [[ -x /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv zsh)"
-elif [[ -x /usr/local/bin/brew ]]; then
-  eval "$(/usr/local/bin/brew shellenv zsh)"
-fi
-
-# Stash your environment variables in ~/.localrc. This means they'll stay out
-# of your main dotfiles repository (which may be public, like this one), but
-# you'll have access to them in your scripts.
-[[ -a "$HOME/.localrc" ]] && source "$HOME/.localrc"
-
 export VISUAL='zed'
 export EDITOR='vim'
 export GIT_EDITOR='zed --wait'
@@ -61,19 +49,13 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
 # bun completions
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PNPM_HOME="$HOME/Library/pnpm"
-typeset -U path PATH
-path=("$PNPM_HOME/bin" "$HOME/.local/bin" "$BUN_INSTALL/bin" $path)
+# Vite+ vp() wrapper (PATH is set in .zshenv)
+[[ -s "$HOME/.vite-plus/env" ]] && . "$HOME/.vite-plus/env"
 
 # peon-ping quick controls
 alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
 [[ -f "$HOME/.claude/hooks/peon-ping/completions.bash" ]] && source "$HOME/.claude/hooks/peon-ping/completions.bash"
 
-# Vite+ bin (https://viteplus.dev)
-[[ -s "$HOME/.vite-plus/env" ]] && . "$HOME/.vite-plus/env"
-
-# export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-# zprof
+# initialize MSR Dotfiles
+[[ -n "$MSR_DEV_ENV_TOOLS_HOME" && -f "$MSR_DEV_ENV_TOOLS_HOME/dotfiles/msr-dotfiles.sh" ]] && \
+  source "$MSR_DEV_ENV_TOOLS_HOME/dotfiles/msr-dotfiles.sh"

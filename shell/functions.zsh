@@ -70,11 +70,13 @@ function df.doctor() {
 
   if $fix; then
     "$dotfiles_root/scripts/install-dotfiles.sh" || return
+    zsh "$dotfiles_root/scripts/install-pnpm.sh" || return
     echo ''
   fi
 
   destinations=(
     "$HOME/.zshrc"
+    "$HOME/.zshenv"
     "$HOME/.gitignore-global"
     "$HOME/.gitattributes-global"
     "$HOME/AGENTS.md"
@@ -85,6 +87,7 @@ function df.doctor() {
   )
   sources=(
     "$dotfiles_root/.zshrc"
+    "$dotfiles_root/.zshenv"
     "$dotfiles_root/.gitignore-global"
     "$dotfiles_root/.gitattributes-global"
     "$dotfiles_root/llm/AGENTS.md"
@@ -116,6 +119,14 @@ function df.doctor() {
       echo "✗ git ${git_keys[$i]}"
     fi
   done
+
+  (( ++total ))
+  if zsh "$dotfiles_root/scripts/install-pnpm.sh" --check; then
+    echo "✓ pnpm (standalone)"
+    (( ++configured ))
+  else
+    echo "✗ pnpm (standalone)"
+  fi
 
   echo ''
   echo "$configured/$total configured ($(( configured * 100 / total ))%)."
