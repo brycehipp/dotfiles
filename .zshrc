@@ -49,6 +49,9 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
 # bun completions
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
+# pnpm completions (overrides stale zcompdump `_pnpm` mapping)
+command -v pnpm >/dev/null && eval "$(pnpm completion zsh)"
+
 # Vite+ vp() wrapper (PATH is set in .zshenv)
 [[ -s "$HOME/.vite-plus/env" ]] && . "$HOME/.vite-plus/env"
 
