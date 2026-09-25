@@ -69,6 +69,8 @@ cask "font-fira-code-nerd-font"
 cask "font-maple-mono-nf"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Free and open-source media player
+cask "iina"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
 # File archiver
