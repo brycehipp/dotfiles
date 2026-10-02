@@ -1,6 +1,8 @@
 tap "anomalyco/tap", trusted: true
+tap "can1357/tap", trusted: true
 tap "modem-dev/tap", trusted: true
 tap "peonping/tap", "https://github.com/PeonPing/homebrew-tap", trusted: true
+
 
 # Browser automation CLI for AI agents
 brew "agent-browser"
@@ -8,6 +10,8 @@ brew "agent-browser"
 brew "herdr"
 # Review-first terminal diff viewer for agent-authored changesets
 brew "hunk"
+# Coding agent with the IDE wired in
+brew "can1357/tap/omp"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
 # Sound effects and desktop notifications for AI coding agents
@@ -17,5 +21,6 @@ brew "peonping/tap/peon-ping"
 cask "agentsview"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+
 # Minimal GUI for AI code agents
 cask "t3-code"

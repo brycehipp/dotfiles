@@ -1,4 +1,5 @@
 tap "1password/tap", trusted: true
+tap "giammarco-ferranti/deja", trusted: true
 tap "michel-kraemer/zsh-patina", trusted: true
 tap "oven-sh/bun", trusted: true
 
@@ -16,6 +17,8 @@ brew "cloc"
 brew "dos2unix"
 # Modern, maintained replacement for ls
 brew "eza"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
@@ -34,51 +37,52 @@ brew "gum"
 brew "htop"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Library for storing/retrieving passwords and other secrets
+brew "libsecret"
+# TIFF library and utilities
+brew "libtiff"
 # Deep clean and optimize your Mac
 brew "mole"
 # Manage multiple Node.js versions
 brew "nvm"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
+# Python version management
+brew "pyenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Send macOS User Notifications from the command-line
 brew "terminal-notifier"
-# Terminal multiplexer
-brew "tmux"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
-# Fish-like fast/unobtrusive autosuggestions for zsh
-brew "zsh-autosuggestions"
+
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
+# Predictive ghost-text autosuggestions for zsh
+brew "Giammarco-Ferranti/deja/deja"
 # Blazingly fast Zsh syntax highlighter
 brew "zsh-patina"
-# Fish shell like syntax highlighting for zsh
-brew "zsh-syntax-highlighting"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 
 # Command-line interface for 1Password
 cask "1password-cli"
+# Image, video and clipboard optimiser
+cask "clop"
 # Voice and text chat software
 cask "discord"
-# Window peeking utility app
-cask "dockdoor"
+
 cask "font-fira-code-nerd-font"
 cask "font-maple-mono-nf"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Free and open-source media player
 cask "iina"
-# Tool to prevent the system from going into sleep mode
-cask "keepingyouawake"
-# File archiver
-cask "keka"
+# Archive manager
+cask "macpacker"
 # Local-first alternative to Logitech Options+ for HID++ devices
 cask "openlogi"
-# Utility to uninstall apps and remove leftover files from old/uninstalled apps
-cask "pearcleaner"
+
 # Quick Look generator for Markdown files
 cask "qlmarkdown"
 # Music streaming service
