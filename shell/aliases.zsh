@@ -85,4 +85,11 @@ pubkey() {
 alias git.files_changed='git diff --name-only'
 alias git.release_notes='git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort | nano'
 
-alias ls='eza --icons -F -H --group-directories-first --git -1'
+command -v bat >/dev/null && alias cat='bat'
+if command -v eza >/dev/null; then
+  alias ls='eza --icons=always --group-directories-first'
+  alias la='eza --all --icons=always --group-directories-first'
+  alias ll='eza --long --all --git --icons=always --group-directories-first'
+  alias tree='eza --tree --icons'
+  unalias l lsa 2>/dev/null
+fi
