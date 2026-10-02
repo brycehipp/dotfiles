@@ -1,6 +1,13 @@
 # Always loaded (interactive and non-interactive). Agents/scripts often skip
 # .zshrc, so PATH and env they need belong here. Keep this file small.
 
+export VISUAL='zed'
+export EDITOR='vim'
+export GIT_EDITOR='zed --wait'
+
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_ENV_HINTS=1
+
 # Static brew env (no `brew shellenv` fork on every zsh).
 if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
   if [[ -x /opt/homebrew/bin/brew ]]; then

@@ -3,9 +3,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH="$HOME/.oh-my-zsh"
 
-export VISUAL='zed'
-export EDITOR='vim'
-export GIT_EDITOR='zed --wait'
+[[ -o interactive ]] || return
 
 # Pasting with tabs shouldn't perform autocompletion
 zstyle ':completion:*' insert-tab pending

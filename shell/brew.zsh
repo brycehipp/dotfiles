@@ -1,6 +1,3 @@
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_ENV_HINTS=1
-
 # predictive ghost-text autosuggestions (replaces zsh-autosuggestions)
 if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
   source "$HOME/.local/share/deja/init.zsh"
